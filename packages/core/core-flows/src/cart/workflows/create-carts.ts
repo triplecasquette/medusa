@@ -2,14 +2,19 @@ import {
   AdditionalData,
   CreateCartWorkflowInputDTO,
 } from "@medusajs/framework/types"
-import { CartWorkflowEvents, MedusaError } from "@medusajs/framework/utils"
 import {
-  WorkflowData,
-  WorkflowResponse,
+  CartWorkflowEvents,
+  isDefined,
+  MedusaError,
+} from "@medusajs/framework/utils"
+import {
   createHook,
   createWorkflow,
   parallelize,
   transform,
+  when,
+  WorkflowData,
+  WorkflowResponse,
 } from "@medusajs/framework/workflows-sdk"
 import { emitEventStep } from "../../common/steps/emit-event"
 import { useRemoteQueryStep } from "../../common/steps/use-remote-query"
@@ -36,7 +41,7 @@ export const createCartWorkflow = createWorkflow(
   createCartWorkflowId,
   (input: WorkflowData<CreateCartWorkflowInputDTO & AdditionalData>) => {
     const variantIds = transform({ input }, (data) => {
-      return (data.input.items ?? []).map((i) => i.variant_id)
+      return (data.input.items ?? []).map((i) => i.variant_id).filter(isDefined)
     })
 
     const [salesChannel, region, customerData] = parallelize(
@@ -68,16 +73,20 @@ export const createCartWorkflow = createWorkflow(
       }
     )
 
-    const variants = useRemoteQueryStep({
-      entry_point: "variants",
-      fields: productVariantsFields,
-      variables: {
-        id: variantIds,
-        calculated_price: {
-          context: pricingContext,
+    const variants = when({ variantIds }, ({ variantIds }) => {
+      return !!variantIds.length
+    }).then(() => {
+      return useRemoteQueryStep({
+        entry_point: "variants",
+        fields: productVariantsFields,
+        variables: {
+          id: variantIds,
+          calculated_price: {
+            context: pricingContext,
+          },
         },
-      },
-      throw_if_key_not_found: true,
+        throw_if_key_not_found: true,
+      })
     })
 
     validateVariantPricesStep({ variants })
@@ -134,17 +143,27 @@ export const createCartWorkflow = createWorkflow(
     const lineItems = transform({ priceSets, input, variants }, (data) => {
       const items = (data.input.items ?? []).map((item) => {
         const variant = data.variants.find((v) => v.id === item.variant_id)!
+        const variantPrice = item.variant_id
+          ? data.priceSets[item.variant_id]
+          : undefined
+
+        const unitPrice = item.unit_price || variantPrice?.calculated_amount
+        const isTaxInclusive =
+          item.is_tax_inclusive ||
+          variantPrice?.is_calculated_price_tax_inclusive
+
+        if (!isDefined(unitPrice)) {
+          throw new MedusaError(
+            MedusaError.Types.INVALID_DATA,
+            "Line item missing a unit price"
+          )
+        }
 
         return prepareLineItemData({
-          variant: variant,
-          unitPrice:
-            item.unit_price ||
-            data.priceSets[item.variant_id].calculated_amount,
-          isTaxInclusive:
-            item.is_tax_inclusive ||
-            data.priceSets[item.variant_id].is_calculated_price_tax_inclusive,
-          quantity: item.quantity,
-          metadata: item?.metadata ?? {},
+          item,
+          unitPrice,
+          isTaxInclusive,
+          variant,
         })
       })
 

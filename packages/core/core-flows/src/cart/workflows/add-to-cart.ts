@@ -2,11 +2,16 @@ import {
   AddToCartWorkflowInputDTO,
   CreateLineItemForCartDTO,
 } from "@medusajs/framework/types"
-import { CartWorkflowEvents } from "@medusajs/framework/utils"
+import {
+  CartWorkflowEvents,
+  isDefined,
+  MedusaError,
+} from "@medusajs/framework/utils"
 import {
   createWorkflow,
   parallelize,
   transform,
+  when,
   WorkflowData,
   WorkflowResponse,
 } from "@medusajs/framework/workflows-sdk"
@@ -40,7 +45,7 @@ export const addToCartWorkflow = createWorkflow(
     validateCartStep(input)
 
     const variantIds = transform({ input }, (data) => {
-      return (data.input.items ?? []).map((i) => i.variant_id)
+      return (data.input.items ?? []).map((i) => i.variant_id).filter(isDefined)
     })
 
     // TODO: This is on par with the context used in v1.*, but we can be more flexible.
@@ -52,33 +57,48 @@ export const addToCartWorkflow = createWorkflow(
       }
     })
 
-    const variants = useRemoteQueryStep({
-      entry_point: "variants",
-      fields: productVariantsFields,
-      variables: {
-        id: variantIds,
-        calculated_price: {
-          context: pricingContext,
+    const variants = when({ variantIds }, ({ variantIds }) => {
+      return !!variantIds.length
+    }).then(() => {
+      return useRemoteQueryStep({
+        entry_point: "variants",
+        fields: productVariantsFields,
+        variables: {
+          id: variantIds,
+          calculated_price: {
+            context: pricingContext,
+          },
         },
-      },
-      throw_if_key_not_found: true,
+        throw_if_key_not_found: true,
+      })
     })
 
     validateVariantPricesStep({ variants })
 
     const lineItems = transform({ input, variants }, (data) => {
       const items = (data.input.items ?? []).map((item) => {
-        const variant = data.variants.find((v) => v.id === item.variant_id)!
+        const variant = (data.variants ?? []).find(
+          (v) => v.id === item.variant_id
+        )!
+
+        const unitPrice =
+          item.unit_price || variant?.calculated_price.calculated_amount
+        const isTaxInclusive =
+          item.is_tax_inclusive ||
+          variant?.calculated_price.is_calculated_price_tax_inclusive
+
+        if (!isDefined(unitPrice)) {
+          throw new MedusaError(
+            MedusaError.Types.INVALID_DATA,
+            "Line item missing a unit price"
+          )
+        }
 
         return prepareLineItemData({
-          variant: variant,
-          unitPrice:
-            item.unit_price || variant.calculated_price.calculated_amount,
-          isTaxInclusive:
-            item.is_tax_inclusive ||
-            variant.calculated_price.is_calculated_price_tax_inclusive,
-          quantity: item.quantity,
-          metadata: item?.metadata ?? {},
+          item,
+          variant,
+          unitPrice,
+          isTaxInclusive,
           cartId: data.input.cart.id,
         }) as CreateLineItemForCartDTO
       })

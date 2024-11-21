@@ -49,8 +49,6 @@ function prepareLineItems(data) {
       isTaxInclusive:
         item.is_tax_inclusive ??
         data.priceSets[item.variant_id!]?.is_calculated_price_tax_inclusive,
-      quantity: item.quantity as number,
-      metadata: item?.metadata,
       taxLines: item.tax_lines || [],
       adjustments: item.adjustments || [],
     })

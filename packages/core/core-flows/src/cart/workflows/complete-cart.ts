@@ -122,8 +122,6 @@ export const completeCartWorkflow = createWorkflow(
             compareAtUnitPrice:
               item.raw_compare_at_unit_price ?? item.compare_at_unit_price,
             isTaxInclusive: item.is_tax_inclusive,
-            quantity: item.raw_quantity ?? item.quantity,
-            metadata: item?.metadata,
             taxLines: item.tax_lines ?? [],
             adjustments: item.adjustments ?? [],
           })

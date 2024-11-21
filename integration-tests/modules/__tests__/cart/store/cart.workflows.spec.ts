@@ -13,7 +13,9 @@ import {
   updatePaymentCollectionStepId,
   updateTaxLinesWorkflow,
 } from "@medusajs/core-flows"
+import { medusaIntegrationTestRunner } from "@medusajs/test-utils"
 import {
+  CartWorkflowDTO,
   ICartModuleService,
   ICustomerModuleService,
   IFulfillmentModuleService,
@@ -30,7 +32,6 @@ import {
   Modules,
   RuleOperator,
 } from "@medusajs/utils"
-import { medusaIntegrationTestRunner } from "@medusajs/test-utils"
 import {
   adminHeaders,
   createAdminUser,
@@ -777,6 +778,107 @@ medusaIntegrationTestRunner({
                   quantity: 1,
                   title: "Test variant",
                 }),
+              ]),
+            })
+          )
+        })
+
+        it("should add custom item to cart", async () => {
+          const salesChannel = await scModuleService.createSalesChannels({
+            name: "Webshop",
+          })
+
+          const location = await stockLocationModule.createStockLocations({
+            name: "Warehouse",
+          })
+
+          let cart = await cartModuleService.createCarts({
+            currency_code: "usd",
+            sales_channel_id: salesChannel.id,
+          })
+
+          await remoteLink.create([
+            {
+              [Modules.SALES_CHANNEL]: {
+                sales_channel_id: salesChannel.id,
+              },
+              [Modules.STOCK_LOCATION]: {
+                stock_location_id: location.id,
+              },
+            },
+          ])
+
+          cart = await cartModuleService.retrieveCart(cart.id, {
+            select: ["id", "region_id", "currency_code", "sales_channel_id"],
+          })
+
+          await addToCartWorkflow(appContainer).run({
+            input: {
+              items: [
+                {
+                  title: "Test item",
+                  subtitle: "Test subtitle",
+                  thumbnail: "some-url",
+                  requires_shipping: true,
+                  is_discountable: false,
+                  is_tax_inclusive: false,
+                  unit_price: 3000,
+                  metadata: {
+                    foo: "bar",
+                  },
+                  quantity: 1,
+                },
+              ],
+              cart: cart as CartWorkflowDTO,
+            },
+          })
+
+          cart = await cartModuleService.retrieveCart(cart.id, {
+            relations: ["items"],
+          })
+
+          expect(cart).toEqual(
+            expect.objectContaining({
+              id: cart.id,
+              currency_code: "usd",
+              items: expect.arrayContaining([
+                {
+                  cart_id: expect.any(String),
+                  compare_at_unit_price: null,
+                  created_at: expect.any(Date),
+                  deleted_at: null,
+                  id: expect.any(String),
+                  is_discountable: false,
+                  is_tax_inclusive: false,
+                  metadata: {
+                    foo: "bar",
+                  },
+                  product_collection: null,
+                  product_description: null,
+                  product_handle: null,
+                  product_id: null,
+                  product_subtitle: null,
+                  product_title: null,
+                  product_type: null,
+                  product_type_id: null,
+                  quantity: 1,
+                  raw_compare_at_unit_price: null,
+                  raw_unit_price: {
+                    precision: 20,
+                    value: "3000",
+                  },
+                  requires_shipping: true,
+                  subtitle: "Test subtitle",
+                  thumbnail: "some-url",
+                  title: "Test item",
+                  unit_price: 3000,
+                  updated_at: expect.any(Date),
+                  variant_barcode: null,
+                  variant_id: null,
+                  variant_option_values: null,
+                  variant_sku: null,
+                  variant_title: null,
+                },
               ]),
             })
           )

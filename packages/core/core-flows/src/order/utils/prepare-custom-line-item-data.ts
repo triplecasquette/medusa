@@ -1,26 +1,9 @@
-import {
-  BigNumberInput,
-  CreateOrderAdjustmentDTO,
-  CreateOrderLineItemTaxLineDTO,
-} from "@medusajs/framework/types"
+import { BigNumberInput } from "@medusajs/framework/types"
 import {
   prepareAdjustmentsData,
+  PrepareLineItemDataInput,
   prepareTaxLinesData,
 } from "../../cart/utils/prepare-line-item-data"
-
-interface Input {
-  quantity: BigNumberInput
-  metadata?: Record<string, any>
-  unitPrice: BigNumberInput
-  isTaxInclusive?: boolean
-  taxLines?: CreateOrderLineItemTaxLineDTO[]
-  adjustments?: CreateOrderAdjustmentDTO[]
-  variant: {
-    title: string
-    sku?: string
-    barcode?: string
-  }
-}
 
 interface Output {
   quantity: BigNumberInput
@@ -33,27 +16,18 @@ interface Output {
   metadata?: Record<string, any>
 }
 
-export function prepareCustomLineItemData(data: Input): Output {
-  const {
-    variant,
-    unitPrice,
-    isTaxInclusive,
-    quantity,
-    metadata,
-    taxLines,
-    adjustments,
-  } = data
+export function prepareCustomLineItemData(
+  data: Omit<PrepareLineItemDataInput, "variant">
+): Output {
+  const { item, unitPrice, isTaxInclusive, taxLines, adjustments } = data
 
   const lineItem: any = {
-    quantity,
-    title: variant.title,
-    variant_sku: variant.sku,
-    variant_barcode: variant.barcode,
-    variant_title: variant.title,
+    quantity: item?.quantity,
+    title: item?.title,
 
     unit_price: unitPrice,
     is_tax_inclusive: !!isTaxInclusive,
-    metadata,
+    metadata: item?.metadata ?? {},
   }
 
   if (taxLines) {
