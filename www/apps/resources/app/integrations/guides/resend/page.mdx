@@ -1,0 +1,96 @@
+import { Card, Prerequisites, Details } from "docs-ui"
+import { Github } from "@medusajs/icons"
+
+export const ogImage = "https://res.cloudinary.com/dza7lstvk/image/upload/v1732200494/Medusa%20Resources/opengraph-image_kstzrn.jpg"
+
+export const metadata = {
+  title: `Integrate Medusa with Resend`,
+  openGraph: {
+    images: [
+      {
+        url: ogImage,
+        width: 800,
+        height: 450,
+        type: "image/jpeg"
+      }
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: ogImage,
+        width: 800,
+        height: 450,
+        type: "image/jpeg"
+      }
+    ]
+  }
+}
+
+# {metadata.title}
+
+In this guide, you'll learn how to integrate Medusa with Resend.
+
+When you install a Medusa application, you get a fully-fledged commerce platform with support for customizations. Medusa's architecture supports integrating third-party services, such as an email service, that allow you to build your unique requirements around core commerce flows.
+
+[Resend](https://resend.com/docs/introduction) is an email service with an intuitive developer experience to send emails from any application type, including Node.js servers. By integrating Resend with Medusa, you can build flows to send an email when a commerce operation is performed, such as when an order is placed or when a user is invited to the store's team.
+
+This guide will teach you how to:
+
+- Install and set up Medusa.
+- Integrate Resend into Medusa as a Notification Module.
+- Build a flow that sends an email with Resend when an order is placed.
+
+You can follow this guide whether you're new to Medusa or an advanced Medusa developer.
+
+<Card
+  title="Example Repository"
+  text="Find the full code of the guide in this repository."
+  href="https://github.com/medusajs/examples/tree/main/resend-integration"
+  icon={Github}
+/>
+
+---
+
+## Step 1: Install a Medusa Application
+
+<Prerequisites items={[
+  {
+    text: "Node.js v20+",
+    link: "https://nodejs.org/en/download"
+  },
+  {
+    text: "Git CLI tool",
+    link: "https://git-scm.com/downloads"
+  },
+  {
+    text: "PostgreSQL",
+    link: "https://www.postgresql.org/download/"
+  }
+]} />
+
+Start by installing the Medusa application on your machine with the following command:
+
+```bash
+npx create-medusa-app@latest
+```
+
+You'll first be asked for the project's name. Then, when you're asked whether you want to install the Next.js storefront, choose `Y` for yes.
+
+Afterwards, the installation process will start, which will install the Medusa application in a directory with your project's name, and the Next.js storefront in a directory with the `{project-name}-storefront` name.
+
+<Note title="Why is the storefront installed separately?">
+
+The Medusa application is composed of a headless Node.js server and an admin dashboard. The storefront is installed or custom-built separately and connects to the Medusa application through its REST endpoints, called [API routes](!docs!/learn/basics/api-routes). Learn more about Medusa's architecture in [this documentation](!docs!/learn/advanced-development/architecture/overview).
+
+</Note>
+
+Once the installation finishes successfully, the Medusa Admin dashboard will open with a form to create a new user. Enter the user's credential and submit the form.
+
+Afterwards, you can login with the new user and explore the dashboard. The Next.js storefront is also running at `http://localhost:8000`.
+
+<Note title="Ran to Errors?">
+
+Check out the [troubleshooting guides](../../../troubleshooting/create-medusa-app-errors/page.mdx) for help.
+
+</Note>
