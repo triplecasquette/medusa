@@ -1786,6 +1786,11 @@ export const sidebar = sidebarAttachHrefCommonOptions([
             path: "/integrations/guides/sanity",
             title: "Sanity",
           },
+          {
+            type: "link",
+            path: "/integrations/guides/resend",
+            title: "Resend",
+          },
         ],
       },
     ],
