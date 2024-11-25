@@ -116,7 +116,7 @@ export abstract class AbstractSearchService
    * Additionally, if you’re creating your search service as an external plugin to be installed on any Medusa backend and you want to access the options added for the plugin,
    * you can access them in the constructor. The default constructor already sets the value of the class proeprty `options_` to the passed options.
    *
-   * @param {MedusaContainer} container - An instance of `MedusaContainer` that allows you to access other resources, such as services, in your Medusa backend.
+   * @param {Record<string, unknown>} cradle - An container cradle that allows you to access other resources, such as services, in your Medusa backend.
    * @param {Record<string, unknown>} options - If this search service is created in a plugin, the plugin's options are passed in this parameter.
    *
    * @example
@@ -144,7 +144,7 @@ export abstract class AbstractSearchService
    *   // ...
    * }
    */
-  protected constructor(container, options) {
+  protected constructor(cradle, options) {
     this.options_ = options
   }
 

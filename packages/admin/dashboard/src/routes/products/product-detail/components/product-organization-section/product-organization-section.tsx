@@ -65,9 +65,9 @@ export const ProductOrganizationSection = ({
         title={t("fields.collection")}
         value={
           product.collection ? (
-            <Badge size="2xsmall" className="w-fit" asChild>
+            <Badge size="2xsmall" className="max-w-[182px]" asChild>
               <Link to={`/collections/${product.collection.id}`}>
-                {product.collection.title}
+                <span className="truncate">{product.collection.title}</span>
               </Link>
             </Badge>
           ) : undefined

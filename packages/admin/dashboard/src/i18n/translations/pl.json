@@ -386,6 +386,8 @@
       "successToast": "Produkt {{title}} został pomyślnie zaktualizowany."
     },
     "create": {
+      "title": "Utwórz produkt",
+      "description": "Utwórz nowy produkt.",
       "header": "Ogólne",
       "tabs": {
         "details": "Szczegóły",
@@ -490,7 +492,8 @@
         "header": "Brak mediów",
         "description": "Dodaj media do produktu, aby zaprezentować go w swoim sklepie.",
         "action": "Dodaj media"
-      }
+      },
+      "successToast": "Media zostały pomyślnie zaktualizowane."
     },
     "discountableHint": "Jeśli odznaczone, rabaty nie będą stosowane do tego produktu.",
     "noSalesChannels": "Niedostępny w żadnych kanałach sprzedaży",

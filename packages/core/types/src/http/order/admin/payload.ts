@@ -5,8 +5,8 @@ export interface AdminCreateOrderFulfillment {
   items: {
     /**
      * The order item's ID.
-     */ 
-    id: string; 
+     */
+    id: string
     /**
      * The quantity to fulfill.
      */
@@ -34,8 +34,8 @@ export interface AdminCreateOrderShipment {
   items: {
     /**
      * The item's ID.
-     */ 
-    id: string; 
+     */
+    id: string
     /**
      * The quantity to ship.
      */
@@ -76,3 +76,9 @@ export interface AdminCancelOrderFulfillment {
 }
 
 export interface AdminMarkOrderFulfillmentAsDelivered {}
+
+export interface AdminRequestOrderTransfer {
+  customer_id: string
+  internal_note?: string
+  description?: string
+}

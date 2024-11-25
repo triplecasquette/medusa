@@ -21,4 +21,5 @@ export declare type DocsConfig = {
     releaseUrl: string
   }
   reportIssueLink?: string
+  logo: string
 }

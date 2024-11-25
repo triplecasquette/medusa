@@ -14,7 +14,6 @@ import {
 } from "../../../../../extensions"
 import { useCreateProduct } from "../../../../../hooks/api/products"
 import { sdk } from "../../../../../lib/client"
-import { isFetchError } from "../../../../../lib/is-fetch-error"
 import {
   PRODUCT_CREATE_FORM_DEFAULTS,
   ProductCreateSchema,
@@ -80,13 +79,10 @@ export const ProductCreateForm = ({
       return {}
     }
 
-    return regions.reduce(
-      (acc, reg) => {
-        acc[reg.id] = reg.currency_code
-        return acc
-      },
-      {} as Record<string, string>
-    )
+    return regions.reduce((acc, reg) => {
+      acc[reg.id] = reg.currency_code
+      return acc
+    }, {} as Record<string, string>)
   }, [regions])
 
   /**
@@ -140,32 +136,34 @@ export const ProductCreateForm = ({
 
         uploadedMedia = (await Promise.all(fileReqs)).flat()
       }
-
-      const { product } = await mutateAsync(
-        normalizeProductFormValues({
-          ...payload,
-          media: uploadedMedia,
-          status: (isDraftSubmission ? "draft" : "published") as any,
-          regionsCurrencyMap,
-        })
-      )
-
-      toast.success(
-        t("products.create.successToast", {
-          title: product.title,
-        })
-      )
-
-      handleSuccess(`../${product.id}`)
     } catch (error) {
-      if (isFetchError(error) && error.status === 400) {
+      if (error instanceof Error) {
         toast.error(error.message)
-      } else {
-        toast.error(t("general.error"), {
-          description: error.message,
-        })
       }
     }
+
+    await mutateAsync(
+      normalizeProductFormValues({
+        ...payload,
+        media: uploadedMedia,
+        status: (isDraftSubmission ? "draft" : "published") as any,
+        regionsCurrencyMap,
+      }),
+      {
+        onSuccess: (data) => {
+          toast.success(
+            t("products.create.successToast", {
+              title: data.product.title,
+            })
+          )
+
+          handleSuccess(`../${data.product.id}`)
+        },
+        onError: (error) => {
+          toast.error(error.message)
+        },
+      }
+    )
   })
 
   const onNext = async (currentTab: Tab) => {
@@ -210,143 +208,141 @@ export const ProductCreateForm = ({
     }
 
     setTabState({ ...currentState })
-  }, [tab])
+  }, [tab, tabState])
 
   return (
-    <RouteFocusModal>
-      <RouteFocusModal.Form form={form}>
-        <KeyboundForm
-          onKeyDown={(e) => {
-            // We want to continue to the next tab on enter instead of saving as draft immediately
-            if (e.key === "Enter") {
-              e.preventDefault()
+    <RouteFocusModal.Form form={form}>
+      <KeyboundForm
+        onKeyDown={(e) => {
+          // We want to continue to the next tab on enter instead of saving as draft immediately
+          if (e.key === "Enter") {
+            e.preventDefault()
 
-              if (e.metaKey || e.ctrlKey) {
-                if (tab !== Tab.VARIANTS) {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  onNext(tab)
+            if (e.metaKey || e.ctrlKey) {
+              if (tab !== Tab.VARIANTS) {
+                e.preventDefault()
+                e.stopPropagation()
+                onNext(tab)
 
-                  return
-                }
-
-                handleSubmit()
-              }
-            }
-          }}
-          onSubmit={handleSubmit}
-          className="flex h-full flex-col"
-        >
-          <ProgressTabs
-            value={tab}
-            onValueChange={async (tab) => {
-              const valid = await form.trigger()
-
-              if (!valid) {
                 return
               }
 
-              setTab(tab as Tab)
-            }}
-            className="flex h-full flex-col overflow-hidden"
-          >
-            <RouteFocusModal.Header>
-              <div className="-my-2 w-full border-l">
-                <ProgressTabs.List className="justify-start-start flex w-full items-center">
-                  <ProgressTabs.Trigger
-                    status={tabState[Tab.DETAILS]}
-                    value={Tab.DETAILS}
-                    className="max-w-[200px] truncate"
-                  >
-                    {t("products.create.tabs.details")}
-                  </ProgressTabs.Trigger>
-                  <ProgressTabs.Trigger
-                    status={tabState[Tab.ORGANIZE]}
-                    value={Tab.ORGANIZE}
-                    className="max-w-[200px] truncate"
-                  >
-                    {t("products.create.tabs.organize")}
-                  </ProgressTabs.Trigger>
-                  <ProgressTabs.Trigger
-                    status={tabState[Tab.VARIANTS]}
-                    value={Tab.VARIANTS}
-                    className="max-w-[200px] truncate"
-                  >
-                    {t("products.create.tabs.variants")}
-                  </ProgressTabs.Trigger>
-                  {showInventoryTab && (
-                    <ProgressTabs.Trigger
-                      status={tabState[Tab.INVENTORY]}
-                      value={Tab.INVENTORY}
-                      className="max-w-[200px] truncate"
-                    >
-                      {t("products.create.tabs.inventory")}
-                    </ProgressTabs.Trigger>
-                  )}
-                </ProgressTabs.List>
-              </div>
-            </RouteFocusModal.Header>
-            <RouteFocusModal.Body className="size-full overflow-hidden">
-              <ProgressTabs.Content
-                className="size-full overflow-y-auto"
-                value={Tab.DETAILS}
-              >
-                <ProductCreateDetailsForm form={form} />
-              </ProgressTabs.Content>
-              <ProgressTabs.Content
-                className="size-full overflow-y-auto"
-                value={Tab.ORGANIZE}
-              >
-                <ProductCreateOrganizeForm form={form} />
-              </ProgressTabs.Content>
-              <ProgressTabs.Content
-                className="size-full overflow-y-auto"
-                value={Tab.VARIANTS}
-              >
-                <ProductCreateVariantsForm
-                  form={form}
-                  store={store}
-                  regions={regions}
-                  pricePreferences={pricePreferences}
-                />
-              </ProgressTabs.Content>
-              {showInventoryTab && (
-                <ProgressTabs.Content
-                  className="size-full overflow-y-auto"
-                  value={Tab.INVENTORY}
+              handleSubmit()
+            }
+          }
+        }}
+        onSubmit={handleSubmit}
+        className="flex h-full flex-col"
+      >
+        <ProgressTabs
+          value={tab}
+          onValueChange={async (tab) => {
+            const valid = await form.trigger()
+
+            if (!valid) {
+              return
+            }
+
+            setTab(tab as Tab)
+          }}
+          className="flex h-full flex-col overflow-hidden"
+        >
+          <RouteFocusModal.Header>
+            <div className="-my-2 w-full border-l">
+              <ProgressTabs.List className="justify-start-start flex w-full items-center">
+                <ProgressTabs.Trigger
+                  status={tabState[Tab.DETAILS]}
+                  value={Tab.DETAILS}
+                  className="max-w-[200px] truncate"
                 >
-                  <ProductCreateInventoryKitForm form={form} />
-                </ProgressTabs.Content>
-              )}
-            </RouteFocusModal.Body>
-          </ProgressTabs>
-          <RouteFocusModal.Footer>
-            <div className="flex items-center justify-end gap-x-2">
-              <RouteFocusModal.Close asChild>
-                <Button variant="secondary" size="small">
-                  {t("actions.cancel")}
-                </Button>
-              </RouteFocusModal.Close>
-              <Button
-                data-name={SAVE_DRAFT_BUTTON}
-                size="small"
-                type="submit"
-                isLoading={isPending}
-                className="whitespace-nowrap"
-              >
-                {t("actions.saveAsDraft")}
-              </Button>
-              <PrimaryButton
-                tab={tab}
-                next={onNext}
-                isLoading={isPending}
-                showInventoryTab={showInventoryTab}
-              />
+                  {t("products.create.tabs.details")}
+                </ProgressTabs.Trigger>
+                <ProgressTabs.Trigger
+                  status={tabState[Tab.ORGANIZE]}
+                  value={Tab.ORGANIZE}
+                  className="max-w-[200px] truncate"
+                >
+                  {t("products.create.tabs.organize")}
+                </ProgressTabs.Trigger>
+                <ProgressTabs.Trigger
+                  status={tabState[Tab.VARIANTS]}
+                  value={Tab.VARIANTS}
+                  className="max-w-[200px] truncate"
+                >
+                  {t("products.create.tabs.variants")}
+                </ProgressTabs.Trigger>
+                {showInventoryTab && (
+                  <ProgressTabs.Trigger
+                    status={tabState[Tab.INVENTORY]}
+                    value={Tab.INVENTORY}
+                    className="max-w-[200px] truncate"
+                  >
+                    {t("products.create.tabs.inventory")}
+                  </ProgressTabs.Trigger>
+                )}
+              </ProgressTabs.List>
             </div>
-          </RouteFocusModal.Footer>
-        </KeyboundForm>
-      </RouteFocusModal.Form>
-    </RouteFocusModal>
+          </RouteFocusModal.Header>
+          <RouteFocusModal.Body className="size-full overflow-hidden">
+            <ProgressTabs.Content
+              className="size-full overflow-y-auto"
+              value={Tab.DETAILS}
+            >
+              <ProductCreateDetailsForm form={form} />
+            </ProgressTabs.Content>
+            <ProgressTabs.Content
+              className="size-full overflow-y-auto"
+              value={Tab.ORGANIZE}
+            >
+              <ProductCreateOrganizeForm form={form} />
+            </ProgressTabs.Content>
+            <ProgressTabs.Content
+              className="size-full overflow-y-auto"
+              value={Tab.VARIANTS}
+            >
+              <ProductCreateVariantsForm
+                form={form}
+                store={store}
+                regions={regions}
+                pricePreferences={pricePreferences}
+              />
+            </ProgressTabs.Content>
+            {showInventoryTab && (
+              <ProgressTabs.Content
+                className="size-full overflow-y-auto"
+                value={Tab.INVENTORY}
+              >
+                <ProductCreateInventoryKitForm form={form} />
+              </ProgressTabs.Content>
+            )}
+          </RouteFocusModal.Body>
+        </ProgressTabs>
+        <RouteFocusModal.Footer>
+          <div className="flex items-center justify-end gap-x-2">
+            <RouteFocusModal.Close asChild>
+              <Button variant="secondary" size="small">
+                {t("actions.cancel")}
+              </Button>
+            </RouteFocusModal.Close>
+            <Button
+              data-name={SAVE_DRAFT_BUTTON}
+              size="small"
+              type="submit"
+              isLoading={isPending}
+              className="whitespace-nowrap"
+            >
+              {t("actions.saveAsDraft")}
+            </Button>
+            <PrimaryButton
+              tab={tab}
+              next={onNext}
+              isLoading={isPending}
+              showInventoryTab={showInventoryTab}
+            />
+          </div>
+        </RouteFocusModal.Footer>
+      </KeyboundForm>
+    </RouteFocusModal.Form>
   )
 }
 

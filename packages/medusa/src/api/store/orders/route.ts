@@ -12,6 +12,7 @@ export const GET = async (
   const variables = {
     filters: {
       ...req.filterableFields,
+      is_draft_order: false,
       customer_id: req.auth_context.actor_id,
     },
     ...req.remoteQueryConfig.pagination,

@@ -1,19 +1,20 @@
-import { isPresent, ProductStatus } from "@medusajs/framework/utils"
+import { validateAndTransformQuery } from "@medusajs/framework"
 import {
   applyDefaultFilters,
   applyParamsAsFilters,
+  authenticate,
   clearFiltersByKey,
   maybeApplyLinkFilter,
   MiddlewareRoute,
   setContext,
 } from "@medusajs/framework/http"
+import { isPresent, ProductStatus } from "@medusajs/framework/utils"
 import {
   filterByValidSalesChannels,
   normalizeDataForContext,
   setPricingContext,
   setTaxContext,
 } from "../../utils/middlewares"
-import { validateAndTransformQuery } from "@medusajs/framework"
 import { maybeApplyStockLocationId } from "./helpers"
 import * as QueryConfig from "./query-config"
 import { StoreGetProductsParams } from "./validators"
@@ -23,6 +24,9 @@ export const storeProductRoutesMiddlewares: MiddlewareRoute[] = [
     method: ["GET"],
     matcher: "/store/products",
     middlewares: [
+      authenticate("customer", ["session", "bearer"], {
+        allowUnauthenticated: true,
+      }),
       validateAndTransformQuery(
         StoreGetProductsParams,
         QueryConfig.listProductQueryConfig
@@ -60,6 +64,9 @@ export const storeProductRoutesMiddlewares: MiddlewareRoute[] = [
     method: ["GET"],
     matcher: "/store/products/:id",
     middlewares: [
+      authenticate("customer", ["session", "bearer"], {
+        allowUnauthenticated: true,
+      }),
       validateAndTransformQuery(
         StoreGetProductsParams,
         QueryConfig.retrieveProductQueryConfig

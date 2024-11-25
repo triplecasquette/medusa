@@ -386,6 +386,8 @@
       "successToast": "Ürün {{title}} başarıyla güncellendi."
     },
     "create": {
+      "title": "Ürün Oluştur",
+      "description": "Yeni bir ürün oluşturun.",
       "header": "Genel",
       "tabs": {
         "details": "Detaylar",
@@ -490,7 +492,8 @@
         "header": "Henüz medya yok",
         "description": "Ürünü mağazanızda sergilemek için medya ekleyin.",
         "action": "Medya ekle"
-      }
+      },
+      "successToast": "Medya başarıyla güncellendi."
     },
     "discountableHint": "İşaretlenmediğinde, bu ürüne indirim uygulanmayacaktır.",
     "noSalesChannels": "Hiçbir satış kanalında mevcut değil",

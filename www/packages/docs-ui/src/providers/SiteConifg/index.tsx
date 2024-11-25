@@ -37,6 +37,7 @@ export const SiteConfigProvider = ({
           showCategories: true,
         },
         reportIssueLink: GITHUB_ISSUES_LINK,
+        logo: "",
       },
       globalConfig,
       initConfig || {}

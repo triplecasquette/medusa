@@ -46,7 +46,7 @@ export const POST = async (
   })
 
   const customer = await refetchCustomer(
-    req.params.id,
+    customerId,
     req.scope,
     req.remoteQueryConfig.fields
   )

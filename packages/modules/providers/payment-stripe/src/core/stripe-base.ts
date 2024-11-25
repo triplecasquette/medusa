@@ -4,7 +4,6 @@ import Stripe from "stripe"
 
 import {
   CreatePaymentProviderSession,
-  MedusaContainer,
   PaymentProviderError,
   PaymentProviderSessionResponse,
   ProviderWebhookPayload,
@@ -34,7 +33,7 @@ import {
 abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
   protected readonly options_: StripeOptions
   protected stripe_: Stripe
-  protected container_: MedusaContainer
+  protected container_: Record<string, unknown>
 
   static validateOptions(options: StripeOptions): void {
     if (!isDefined(options.apiKey)) {
@@ -42,11 +41,14 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
     }
   }
 
-  protected constructor(container: MedusaContainer, options: StripeOptions) {
+  protected constructor(
+    cradle: Record<string, unknown>,
+    options: StripeOptions
+  ) {
     // @ts-ignore
     super(...arguments)
 
-    this.container_ = container
+    this.container_ = cradle
     this.options_ = options
 
     this.stripe_ = new Stripe(options.apiKey)

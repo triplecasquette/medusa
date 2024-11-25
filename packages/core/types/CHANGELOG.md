@@ -1,5 +1,17 @@
 # @medusajs/types
 
+## 2.0.6
+
+## 2.0.5
+
+### Patch Changes
+
+- [#10159](https://github.com/medusajs/medusa/pull/10159) [`9dff05cddeeca40fab47760fa15e07ca087664ed`](https://github.com/medusajs/medusa/commit/9dff05cddeeca40fab47760fa15e07ca087664ed) Thanks [@thetutlage](https://github.com/thetutlage)! - Revert "feat: add optional fields"
+
+- [#10187](https://github.com/medusajs/medusa/pull/10187) [`1659c9be5d3ace1bed9f3a6e7206fe54e60645c0`](https://github.com/medusajs/medusa/commit/1659c9be5d3ace1bed9f3a6e7206fe54e60645c0) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - feat(dashboard): Allow re-ordering product images
+
+- [#10168](https://github.com/medusajs/medusa/pull/10168) [`3fee17747f059a331e9fbe40622205b968404faf`](https://github.com/medusajs/medusa/commit/3fee17747f059a331e9fbe40622205b968404faf) Thanks [@shahednasser](https://github.com/shahednasser)! - fix(types): fix AdminBatchProductRequest to have product ID
+
 ## 2.0.4
 
 ### Patch Changes

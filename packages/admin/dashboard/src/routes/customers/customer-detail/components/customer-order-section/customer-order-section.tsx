@@ -102,7 +102,7 @@ const CustomerOrderActions = ({ order }: { order: HttpTypes.AdminOrder }) => {
           actions: [
             {
               label: t("transferOwnership.label"),
-              to: `${order.id}/transfer-ownership`,
+              to: `${order.id}/transfer`,
               icon: <ArrowPath />,
             },
           ],

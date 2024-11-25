@@ -13,7 +13,6 @@ import {
 } from "../.."
 import { MainNavEditDate } from "./EditDate"
 import { MainNavItems } from "./Items"
-import { MedusaIcon } from "../Icons/MedusaLogo"
 import { MainNavDesktopMenu } from "./DesktopMenu"
 import { SidebarLeftIcon } from "../Icons/SidebarLeft"
 import { MainNavMobileMenu } from "./MobileMenu"
@@ -52,8 +51,10 @@ export const MainNav = ({ className, itemsClassName }: MainNavProps) => {
           )}
           <Link href={`${config.baseUrl}`}>
             <BorderedIcon
-              IconComponent={MedusaIcon}
+              icon={config.logo}
               iconWrapperClassName="my-[14px]"
+              iconWidth={20}
+              iconHeight={20}
             />
           </Link>
         </div>

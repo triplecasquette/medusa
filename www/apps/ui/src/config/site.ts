@@ -28,4 +28,5 @@ export const siteConfig: SiteConfig = {
   breadcrumbOptions: {
     showCategories: true,
   },
+  logo: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/logo.png`,
 }

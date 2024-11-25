@@ -6,6 +6,7 @@ import {
   generatePublishableKey,
   generateStoreHeaders,
 } from "../../../../helpers/create-admin-user"
+import { createAuthenticatedCustomer } from "../../../../modules/helpers/create-authenticated-customer"
 
 jest.setTimeout(50000)
 
@@ -262,6 +263,39 @@ medusaIntegrationTestRunner({
               "A valid publishable key is required to proceed with the request",
             type: "not_allowed",
           })
+        })
+      })
+    })
+
+    describe("POST /store/customers/me", () => {
+      it("should successfully update a customer", async () => {
+        const { customer, jwt } = await createAuthenticatedCustomer(
+          api,
+          storeHeaders
+        )
+
+        const response = await api.post(
+          `/store/customers/me`,
+          {
+            first_name: "John2",
+            last_name: "Doe2",
+          },
+          {
+            headers: {
+              authorization: `Bearer ${jwt}`,
+              ...storeHeaders.headers,
+            },
+          }
+        )
+
+        expect(response.status).toEqual(200)
+        expect(response.data).toEqual({
+          customer: expect.objectContaining({
+            id: customer.id,
+            first_name: "John2",
+            last_name: "Doe2",
+            email: "tony@start.com",
+          }),
         })
       })
     })

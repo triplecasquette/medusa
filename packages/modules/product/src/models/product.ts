@@ -1,5 +1,6 @@
 import {
   BeforeCreate,
+  Cascade,
   Collection,
   Entity,
   Enum,
@@ -166,11 +167,8 @@ class Product {
   })
   tags = new Collection<ProductTag>(this)
 
-  @ManyToMany(() => ProductImage, "products", {
-    owner: true,
-    pivotTable: "product_images",
-    joinColumn: "product_id",
-    inverseJoinColumn: "image_id",
+  @OneToMany(() => ProductImage, (image) => image.product_id, {
+    cascade: [Cascade.PERSIST, Cascade.REMOVE],
   })
   images = new Collection<ProductImage>(this)
 

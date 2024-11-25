@@ -327,6 +327,7 @@ export const AiAssistant = () => {
               apply
             </>
           }
+          clickable={true}
         >
           <Badge variant="neutral">AI Assistant</Badge>
         </Tooltip>

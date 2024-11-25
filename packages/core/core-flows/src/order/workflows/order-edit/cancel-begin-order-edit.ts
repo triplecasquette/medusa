@@ -41,7 +41,9 @@ export const cancelBeginOrderEditWorkflowId = "cancel-begin-order-edit"
  */
 export const cancelBeginOrderEditWorkflow = createWorkflow(
   cancelBeginOrderEditWorkflowId,
-  function (input: CancelBeginOrderEditWorkflowInput): WorkflowData<void> {
+  function (
+    input: WorkflowData<CancelBeginOrderEditWorkflowInput>
+  ): WorkflowData<void> {
     const order: OrderDTO = useRemoteQueryStep({
       entry_point: "orders",
       fields: ["id", "version", "canceled_at"],

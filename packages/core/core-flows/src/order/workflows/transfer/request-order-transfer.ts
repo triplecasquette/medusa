@@ -131,7 +131,7 @@ export const requestOrderTransferWorkflow = createWorkflow(
 
     emitEventStep({
       eventName: OrderWorkflowEvents.TRANSFER_REQUESTED,
-      data: { id: input.order_id },
+      data: { id: input.order_id, order_change_id: change.id },
     })
 
     return new WorkflowResponse(previewOrderChangeStep(input.order_id))

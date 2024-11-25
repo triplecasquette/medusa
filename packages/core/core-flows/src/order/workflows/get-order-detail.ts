@@ -20,6 +20,7 @@ export const getOrderDetailWorkflow = createWorkflow(
   getOrderDetailWorkflowId,
   (
     input: WorkflowData<{
+      filters?: { is_draft_order?: boolean; customer_id?: string }
       fields: string[]
       order_id: string
       version?: number
@@ -36,13 +37,14 @@ export const getOrderDetailWorkflow = createWorkflow(
       ])
     })
 
+    const variables = transform({ input }, ({ input }) => {
+      return { ...input.filters, id: input.order_id, version: input.version }
+    })
+
     const order: OrderDTO = useRemoteQueryStep({
       entry_point: "orders",
       fields,
-      variables: {
-        id: input.order_id,
-        version: input.version,
-      },
+      variables,
       list: false,
       throw_if_key_not_found: true,
     })

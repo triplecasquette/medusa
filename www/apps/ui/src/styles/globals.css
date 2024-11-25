@@ -41,3 +41,7 @@
     @apply !overflow-hidden text-ui-fg-base;
   }
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

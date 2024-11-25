@@ -1,8 +1,4 @@
-import {
-  EventBusTypes,
-  InternalModuleDeclaration,
-  MedusaContainer,
-} from "@medusajs/types"
+import { EventBusTypes, InternalModuleDeclaration } from "@medusajs/types"
 import { ulid } from "ulid"
 
 export abstract class AbstractEventBusModuleService
@@ -23,7 +19,7 @@ export abstract class AbstractEventBusModuleService
   }
 
   protected constructor(
-    container: MedusaContainer,
+    cradle: Record<string, unknown>,
     moduleOptions = {},
     moduleDeclaration: InternalModuleDeclaration
   ) {

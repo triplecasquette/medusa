@@ -41,7 +41,7 @@ export const OrderGeneralSection = ({ order }: OrderGeneralSectionProps) => {
       return
     }
 
-    await cancelOrder(order.id)
+    await cancelOrder()
   }
 
   return (

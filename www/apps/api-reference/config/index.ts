@@ -23,4 +23,5 @@ export const config: DocsConfig = {
     title: "API Reference",
     key: "api-reference",
   },
+  logo: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/logo.png`,
 }

@@ -1,7 +1,6 @@
 import {
   CreatePaymentProviderSession,
   IPaymentProvider,
-  MedusaContainer,
   PaymentProviderError,
   PaymentProviderSessionResponse,
   PaymentSessionStatus,
@@ -13,14 +12,15 @@ import {
 export abstract class AbstractPaymentProvider<TConfig = Record<string, unknown>>
   implements IPaymentProvider
 {
+  protected readonly container: Record<string, unknown>
   /**
    * This method validates the options of the provider set in `medusa-config.ts`.
    * Implementing this method is optional. It's useful if your provider requires custom validation.
-   * 
+   *
    * If the options aren't valid, throw an error.
-   * 
+   *
    * @param options - The provider's options.
-   * 
+   *
    * @example
    * class MyPaymentProviderService extends AbstractPaymentProvider<Options> {
    *   static validateOptions(options: Record<any, any>) {
@@ -43,7 +43,7 @@ export abstract class AbstractPaymentProvider<TConfig = Record<string, unknown>>
    *
    * The provider can also access the module's options as a second parameter.
    *
-   * @param {MedusaContainer} container - The module's container used to resolve resources.
+   * @param {Record<string, unknown>} cradle - The module's container cradle used to resolve resources.
    * @param {Record<string, unknown>} config - The options passed to the payment module provider.
    *
    * @example
@@ -92,9 +92,11 @@ export abstract class AbstractPaymentProvider<TConfig = Record<string, unknown>>
    * ```
    */
   protected constructor(
-    protected readonly container: MedusaContainer,
+    cradle: Record<string, unknown>,
     protected readonly config: TConfig = {} as TConfig // eslint-disable-next-line @typescript-eslint/no-empty-function
-  ) {}
+  ) {
+    this.container = cradle
+  }
 
   /**
    * @ignore
@@ -110,7 +112,7 @@ export abstract class AbstractPaymentProvider<TConfig = Record<string, unknown>>
 
   /**
    * Each payment provider has a unique identifier defined in its class. The provider's ID
-   * will be stored as `pp_{identifier}_{id}`, where `{id}` is the provider's `id` 
+   * will be stored as `pp_{identifier}_{id}`, where `{id}` is the provider's `id`
    * property in the `medusa-config.ts`.
    *
    * @example

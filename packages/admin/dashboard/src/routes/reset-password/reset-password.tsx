@@ -114,7 +114,7 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
     },
   })
 
-  const { mutateAsync, isPending } = useUpdateProviderForEmailPass()
+  const { mutateAsync, isPending } = useUpdateProviderForEmailPass(token)
 
   const handleSubmit = form.handleSubmit(async ({ password }) => {
     if (!invite) {
@@ -123,7 +123,6 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
 
     await mutateAsync(
       {
-        email: invite.entity_id,
         password,
       },
       {

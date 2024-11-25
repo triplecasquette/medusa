@@ -1,5 +1,5 @@
-import qs from "qs"
 import { events } from "fetch-event-stream"
+import qs from "qs"
 import {
   ClientFetch,
   Config,
@@ -224,7 +224,9 @@ export class Client {
 
       let normalizedInput: RequestInfo | URL = input
       if (input instanceof URL || typeof input === "string") {
-        normalizedInput = new URL(input, this.config.baseUrl)
+        const baseUrl = new URL(this.config.baseUrl)
+        const fullPath = `${baseUrl.pathname.replace(/\/$/, '')}/${input.toString().replace(/^\//, '')}`
+        normalizedInput = new URL(fullPath, baseUrl.origin)
         if (init?.query) {
           const params = Object.fromEntries(
             normalizedInput.searchParams.entries()

@@ -1300,55 +1300,6 @@ medusaIntegrationTestRunner({
           )
         })
 
-        it("should throw error when trying to update a cart that belongs to a customer that has an account", async () => {
-          const customerUpdate1 = await api.post(
-            `/store/carts/${cart.id}/customer`,
-            {},
-            storeHeadersWithCustomer
-          )
-
-          expect(customerUpdate1.status).toEqual(200)
-          expect(customerUpdate1.data.cart).toEqual(
-            expect.objectContaining({
-              email: customer.email,
-              customer: expect.objectContaining({
-                id: customer.id,
-                email: customer.email,
-              }),
-            })
-          )
-
-          const { jwt: jwt2 } = await createAuthenticatedCustomer(
-            api,
-            storeHeaders,
-            {
-              first_name: "tony2",
-              last_name: "stark",
-              email: "tony2@stark-industries.com",
-            }
-          )
-
-          const storeHeadersWithCustomer2 = {
-            headers: {
-              ...storeHeaders.headers,
-              authorization: `Bearer ${jwt2}`,
-            },
-          }
-
-          const { response } = await api
-            .post(
-              `/store/carts/${cart.id}/customer`,
-              {},
-              storeHeadersWithCustomer2
-            )
-            .catch((e) => e)
-
-          expect(response.status).toEqual(400)
-          expect(response.data.message).toEqual(
-            "Cannot update cart customer when its assigned to a different customer"
-          )
-        })
-
         it("should successfully update cart customer when cart is without customer", async () => {
           const updated = await api.post(
             `/store/carts/${cart.id}/customer`,

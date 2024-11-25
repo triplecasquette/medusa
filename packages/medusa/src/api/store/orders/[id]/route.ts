@@ -12,6 +12,9 @@ export const GET = async (
     input: {
       fields: req.remoteQueryConfig.fields,
       order_id: req.params.id,
+      filters: {
+        is_draft_order: false,
+      },
     },
   })
 

@@ -317,6 +317,11 @@ export const RouteMap: RouteObject[] = [
                     lazy: () =>
                       import("../../routes/orders/order-create-refund"),
                   },
+                  {
+                    path: "transfer",
+                    lazy: () =>
+                      import("../../routes/orders/order-request-transfer"),
+                  },
                 ],
               },
             ],

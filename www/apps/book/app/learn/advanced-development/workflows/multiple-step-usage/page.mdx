@@ -16,7 +16,7 @@ Each workflow step must have a unique ID, which is the ID passed as a first para
 
 ```ts
 const useQueryGraphStep = createStep(
-  "use-query-graph",
+  "use-query-graph"
   // ...
 )
 ```
@@ -29,13 +29,13 @@ const helloWorkflow = createWorkflow(
   () => {
     const { data: products } = useQueryGraphStep({
       entity: "product",
-      fields: ["id"]
+      fields: ["id"],
     })
 
     // ERROR OCCURS HERE: A STEP HAS THE SAME ID AS ANOTHER IN THE WORKFLOW
     const { data: customers } = useQueryGraphStep({
       entity: "customer",
-      fields: ["id"]
+      fields: ["id"],
     })
   }
 )
@@ -63,13 +63,13 @@ const helloWorkflow = createWorkflow(
   () => {
     const { data: products } = useQueryGraphStep({
       entity: "product",
-      fields: ["id"]
+      fields: ["id"],
     })
 
     // ✓ No error occurs, the step has a different ID.
     const { data: customers } = useQueryGraphStep({
       entity: "customer",
-      fields: ["id"]
+      fields: ["id"],
     }).config({ name: "fetch-customers" })
   }
 )

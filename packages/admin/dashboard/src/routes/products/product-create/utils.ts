@@ -7,7 +7,7 @@ export const normalizeProductFormValues = (
     status: HttpTypes.AdminProductStatus
     regionsCurrencyMap: Record<string, string>
   }
-) => {
+): HttpTypes.AdminCreateProduct => {
   const thumbnail = values.media?.find((media) => media.isThumbnail)?.url
   const images = values.media
     ?.filter((media) => !media.isThumbnail)
@@ -51,7 +51,7 @@ export const normalizeProductFormValues = (
 export const normalizeVariants = (
   variants: ProductCreateSchemaType["variants"],
   regionsCurrencyMap: Record<string, string>
-) => {
+): HttpTypes.AdminCreateProductVariant[] => {
   return variants.map((variant) => ({
     title: variant.title || Object.values(variant.options || {}).join(" / "),
     options: variant.options,
@@ -60,7 +60,9 @@ export const normalizeVariants = (
     allow_backorder: !!variant.allow_backorder,
     inventory_items: variant
       .inventory!.map((i) => {
-        const quantity = castNumber(i.required_quantity)
+        const quantity = i.required_quantity
+          ? castNumber(i.required_quantity)
+          : null
 
         if (!i.inventory_item_id || !quantity) {
           return false
@@ -71,7 +73,12 @@ export const normalizeVariants = (
           required_quantity: quantity,
         }
       })
-      .filter(Boolean),
+      .filter(
+        (
+          item
+        ): item is { required_quantity: number; inventory_item_id: string } =>
+          item !== false
+      ),
     prices: Object.entries(variant.prices || {})
       .map(([key, value]: any) => {
         if (value === "" || value === undefined) {

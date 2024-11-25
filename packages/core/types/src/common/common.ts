@@ -50,6 +50,11 @@ export interface SoftDeletableEntity extends BaseEntity {
 }
 
 /**
+ * Temporary type fixing to allow any level of orders until we get to properly clean all the types
+ */
+export type FindConfigOrder = { [Key: string]: "ASC" | "DESC" | string & {} | FindConfigOrder }
+
+/**
  * @interface
  *
  * An object that is used to configure how an entity is retrieved from the database. It accepts as a typed parameter an `Entity` class,
@@ -80,7 +85,7 @@ export interface FindConfig<Entity> {
    * An object used to specify how to sort the returned records. Its keys are the names of attributes of the entity, and a key's value can either be `ASC`
    * to sort retrieved records in an ascending order, or `DESC` to sort retrieved records in a descending order.
    */
-  order?: Record<string, "ASC" | "DESC" | (string & {})>
+  order?: FindConfigOrder
 
   /**
    * A boolean indicating whether deleted records should also be retrieved as part of the result. This only works if the entity extends the

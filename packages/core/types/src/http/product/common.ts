@@ -291,6 +291,10 @@ export interface BaseProductImage {
    */
   url: string
   /**
+   * The rank of the product image.
+   */
+  rank: number
+  /**
    * The date the image was created.
    */
   created_at?: string

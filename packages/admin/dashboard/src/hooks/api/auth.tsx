@@ -58,11 +58,12 @@ export const useLogout = (options?: UseMutationOptions<void, FetchError>) => {
 }
 
 export const useUpdateProviderForEmailPass = (
+  token: string,
   options?: UseMutationOptions<void, FetchError, { password: string }>
 ) => {
   return useMutation({
     mutationFn: (payload) =>
-      sdk.auth.updateProvider("user", "emailpass", payload),
+      sdk.auth.updateProvider("user", "emailpass", payload, token),
     onSuccess: async (data, variables, context) => {
       options?.onSuccess?.(data, variables, context)
     },

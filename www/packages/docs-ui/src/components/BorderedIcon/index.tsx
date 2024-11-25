@@ -10,6 +10,8 @@ export type BorderedIconProps = {
   iconWrapperClassName?: string
   iconClassName?: string
   iconColorClassName?: string
+  iconWidth?: number
+  iconHeight?: number
 } & React.HTMLAttributes<HTMLSpanElement>
 
 export const BorderedIcon = ({
@@ -19,6 +21,8 @@ export const BorderedIcon = ({
   iconClassName,
   iconColorClassName = "",
   wrapperClassName,
+  iconWidth = 28,
+  iconHeight = 28,
 }: BorderedIconProps) => {
   return (
     <span
@@ -33,8 +37,8 @@ export const BorderedIcon = ({
           <Image
             src={icon || ""}
             className={clsx(iconClassName, "bordered-icon rounded-docs_xs")}
-            width={28}
-            height={28}
+            width={iconWidth}
+            height={iconHeight}
             alt=""
           />
         )}

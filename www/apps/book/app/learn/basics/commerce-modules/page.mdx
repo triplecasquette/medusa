@@ -8,9 +8,17 @@ In this chapter, you'll learn about Medusa's commerce modules.
 
 ## What is a Commerce Module?
 
-Medusa provides all its commerce features as separate commerce modules, such as the Product or Order modules. Medusa uses these modules in its API routes to expose their commerce features.
+A commerce module is a package built by Medusa that provides business logic and data models specific for a single commerce domain, such as the Product and Order modules. Commerce modules are available out-of-the-box in your application.
 
-Medusa's commerce modules and your custom modules are interchangeable in the Medusa application, making Medusa’s architecture more flexible.
+Medusa implements core commerce flows in workflows that use the commerce modules. Then, it exposes admin and storefront API routes that, under the hood, execute these workflows.
+
+For example, the workflow to add a product to the cart uses the Product Module to check if the product exists, the Inventory Module to ensure the product is available in the inventory, and the Cart Module to finally add the product to the cart.
+
+<Note title="Tip">
+
+You'll find the details and steps of the add-to-cart workflow in [this workflow reference](!resources!/references/medusa-workflows/addToCartWorkflow)
+
+</Note>
 
 ### List of Medusa's Commerce Modules
 
@@ -18,38 +26,31 @@ Refer to [this reference](!resources!/commerce-modules) for a full list of comme
 
 ---
 
-## Resolve Commerce Module Services
+## Use Commerce Modules in Custom Flows
 
-Similarly to your custom module, a commerce module's main service is registered in the Medusa container. So, you can resolve it in your resources, such as API routes, to use its functionality.
+Similar to your [custom modules](../modules/page.mdx), the Medusa application registers a commerce module's service in the [container](../medusa-container/page.mdx). So, you can resolve it in your custom flows. This is useful as you build unique requirements extending core commerce features.
 
-For example, you saw this code snippet in the [Medusa container chapter](../medusa-container/page.mdx):
+For example, consider you have a [workflow](../workflows/page.mdx) (a special function that performs a task in a series of steps with rollback mechanism) that needs a step to retrieve the total number of products. You can create a step in the workflow that resolves the Product Module's service from the container to use its methods:
 
-```ts highlights={[["10"]]}
-import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { IProductModuleService } from "@medusajs/framework/types"
+export const highlights = [
+  ["7", "Modules.PRODUCT", "Resolve the Product Module's service from the container."],
+  ["9", "listAndCountProducts", "Use the service's method to get the products count."]
+]
+
+```ts highlights={highlights}
+import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 import { Modules } from "@medusajs/framework/utils"
 
-export const GET = async (
-  req: MedusaRequest, 
-  res: MedusaResponse
-) => {
-  const productModuleService: IProductModuleService = req.scope.resolve(
-    Modules.PRODUCT
-  )
+export const countProductsStep = createStep(
+  "count-products",
+  async ({ }, { container }) => {
+    const productModuleService = container.resolve(Modules.PRODUCT)
 
-  const [, count] = await productModuleService
-    .listAndCountProducts()
+    const [,count] = await productModuleService.listAndCountProducts()
 
-  res.json({
-    count,
-  })
-}
+    return new StepResponse(count)
+  }
+)
 ```
 
-When you resolve the `Modules.PRODUCT` (or `productModuleService`) registration name, you're actually resolving the main service of the Product Module.
-
-<Note title="Tip">
-
-To resolve the main service of any commerce module, use the registration name defined in the `Modules` enum imported from `@medusajs/framework/utils`.
-
-</Note>
+Your workflow can use services of both custom and commerce modules, supporting you in building custom flows without having to re-build core commerce features.

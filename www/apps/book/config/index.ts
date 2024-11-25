@@ -17,4 +17,5 @@ export const config: DocsConfig = {
   breadcrumbOptions: {
     showCategories: false,
   },
+  logo: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/logo.png`,
 }

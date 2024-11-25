@@ -149,7 +149,7 @@ class HelloModuleService {
       data: {
         id: "123",
         // other data payload
-      }
+      },
     })
   }
 }
@@ -167,7 +167,7 @@ export const depsHighlight = [
 ]
 
 ```ts title="medusa-config.ts" highlights={depsHighlight}
-import { Modules } from '@medusajs/framework/utils'
+import { Modules } from "@medusajs/framework/utils"
 
 module.exports = defineConfig({
   // ...
@@ -175,10 +175,10 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/hello",
       dependencies: [
-        Modules.EVENT_BUS
-      ]
-    }
-  ]
+        Modules.EVENT_BUS,
+      ],
+    },
+  ],
 })
 ```
 
