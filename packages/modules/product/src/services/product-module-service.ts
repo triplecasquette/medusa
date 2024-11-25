@@ -1,6 +1,7 @@
 import {
   Context,
   DAL,
+  FindConfig,
   IEventBusModuleService,
   InternalModuleDeclaration,
   ModuleJoinerConfig,
@@ -8,10 +9,10 @@ import {
   ProductTypes,
 } from "@medusajs/framework/types"
 import {
-  Image as ProductImage,
   Product,
   ProductCategory,
   ProductCollection,
+  Image as ProductImage,
   ProductOption,
   ProductOptionValue,
   ProductTag,
@@ -58,6 +59,7 @@ type InjectedDependencies = {
   productCategoryService: ProductCategoryService
   productCollectionService: ModulesSdkTypes.IMedusaInternalService<any>
   productImageService: ModulesSdkTypes.IMedusaInternalService<any>
+  productImageProductService: ModulesSdkTypes.IMedusaInternalService<any>
   productTypeService: ModulesSdkTypes.IMedusaInternalService<any>
   productOptionService: ModulesSdkTypes.IMedusaInternalService<any>
   productOptionValueService: ModulesSdkTypes.IMedusaInternalService<any>
@@ -149,6 +151,74 @@ export default class ProductModuleService
 
   __joinerConfig(): ModuleJoinerConfig {
     return joinerConfig
+  }
+
+  @InjectManager()
+  // @ts-ignore
+  async retrieveProduct(
+    productId: string,
+    config?: FindConfig<ProductTypes.ProductDTO>,
+    @MedusaContext() sharedContext?: Context
+  ): Promise<ProductTypes.ProductDTO> {
+    const product = await this.productService_.retrieve(
+      productId,
+      this.getProductFindConfig_(config),
+      sharedContext
+    )
+
+    return this.baseRepository_.serialize<ProductTypes.ProductDTO>(product)
+  }
+
+  @InjectManager()
+  // @ts-ignore
+  async listProducts(
+    filters?: ProductTypes.FilterableProductProps,
+    config?: FindConfig<ProductTypes.ProductDTO>,
+    sharedContext?: Context
+  ): Promise<ProductTypes.ProductDTO[]> {
+    const products = await this.productService_.list(
+      filters,
+      this.getProductFindConfig_(config),
+      sharedContext
+    )
+
+    return this.baseRepository_.serialize<ProductTypes.ProductDTO[]>(products)
+  }
+
+  @InjectManager()
+  // @ts-ignore
+  async listAndCountProducts(
+    filters?: ProductTypes.FilterableProductProps,
+    config?: FindConfig<ProductTypes.ProductDTO>,
+    sharedContext?: Context
+  ): Promise<[ProductTypes.ProductDTO[], number]> {
+    const [products, count] = await this.productService_.listAndCount(
+      filters,
+      this.getProductFindConfig_(config),
+      sharedContext
+    )
+    const serializedProducts = await this.baseRepository_.serialize<
+      ProductTypes.ProductDTO[]
+    >(products)
+    return [serializedProducts, count]
+  }
+
+  protected getProductFindConfig_(
+    config?: FindConfig<ProductTypes.ProductDTO>
+  ): FindConfig<ProductTypes.ProductDTO> {
+    const hasImagesRelation = config?.relations?.includes("images")
+
+    return {
+      ...config,
+      order: {
+        ...config?.order,
+        ...(hasImagesRelation ? {
+          images: {
+            rank: "ASC",
+          },
+        } : {}),
+      },
+    }
   }
 
   // @ts-ignore
@@ -1440,7 +1510,7 @@ export default class ProductModuleService
       await this.productService_.upsertWithReplace(
         normalizedInput,
         {
-          relations: ["images", "tags", "categories"],
+          relations: ["tags", "categories"],
         },
         sharedContext
       )
@@ -1480,6 +1550,27 @@ export default class ProductModuleService
             )
           upsertedProduct.variants = productVariants
         }
+
+        if (Array.isArray(product.images)) {
+          if (product.images.length) {
+            const { entities: productImages } =
+              await this.productImageService_.upsertWithReplace(
+                product.images.map((image, rank) => ({
+                  ...image,
+                  product_id: upsertedProduct.id,
+                  rank,
+                })),
+                {},
+                sharedContext
+              )
+            upsertedProduct.images = productImages
+          } else {
+            await this.productImageService_.delete(
+              { product_id: upsertedProduct.id },
+              sharedContext
+            )
+          }
+        }
       })
     )
 
@@ -1506,7 +1597,7 @@ export default class ProductModuleService
       await this.productService_.upsertWithReplace(
         normalizedInput,
         {
-          relations: ["images", "tags", "categories"],
+          relations: ["tags", "categories"],
         },
         sharedContext
       )
@@ -1584,6 +1675,37 @@ export default class ProductModuleService
             },
             sharedContext
           )
+        }
+
+        if (Array.isArray(product.images)) {
+          if (product.images.length) {
+            const { entities: productImages } =
+              await this.productImageService_.upsertWithReplace(
+                product.images.map((image, rank) => ({
+                  ...image,
+                  product_id: upsertedProduct.id,
+                  rank,
+                })),
+                {},
+                sharedContext
+              )
+            upsertedProduct.images = productImages
+
+            await this.productImageService_.delete(
+              {
+                product_id: upsertedProduct.id,
+                id: {
+                  $nin: productImages.map(({ id }) => id),
+                },
+              },
+              sharedContext
+            )
+          } else {
+            await this.productImageService_.delete(
+              { product_id: upsertedProduct.id },
+              sharedContext
+            )
+          }
         }
       })
     )

@@ -131,6 +131,12 @@ decorators:
         - AdminPaymentCollection
       StoreProductVariant:
         - StoreProduct
+      BaseCollection:
+        - BaseProduct
+      BaseProductCategory:
+        - AdminProduct
+      Return:
+        - OrderExchange
 theme:
   openapi:
     theme:

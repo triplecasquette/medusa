@@ -54,8 +54,8 @@ export default async function orderPlacedHandler({
   await sendOrderConfirmationWorkflow(container)
     .run({
       input: {
-        id: data.id
-      }
+        id: data.id,
+      },
     })
 }
 

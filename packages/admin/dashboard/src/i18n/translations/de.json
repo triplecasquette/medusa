@@ -386,6 +386,8 @@
       "successToast": "Produkz {{title}} angepasst."
     },
     "create": {
+      "title": "Produkt erstellen",
+      "description": "Erstellen Sie ein neues Produkt.",
       "header": "Allgemein",
       "tabs": {
         "details": "Details",
@@ -490,7 +492,8 @@
         "header": "Noch keine Medien",
         "description": "Fügen Sie dem Produkt Medien hinzu, um es in Ihrem Schaufenster zu präsentieren.",
         "action": "Medien hinzufügen"
-      }
+      },
+      "successToast": "Medien wurden erfolgreich aktualisiert."
     },
     "discountableHint": "Wenn diese Option deaktiviert ist, werden auf dieses Produkt keine Rabatte gewährt.",
     "noSalesChannels": "In keinem Vertriebskanal verfügbar",

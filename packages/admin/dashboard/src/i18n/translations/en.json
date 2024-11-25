@@ -386,6 +386,8 @@
       "successToast": "Product {{title}} was successfully updated."
     },
     "create": {
+      "title": "Create Product",
+      "description": "Create a new product.",
       "header": "General",
       "tabs": {
         "details": "Details",
@@ -490,7 +492,8 @@
         "header": "No media yet",
         "description": "Add media to the product to showcase it in your storefront.",
         "action": "Add media"
-      }
+      },
+      "successToast": "Media was successfully updated."
     },
     "discountableHint": "When unchecked, discounts will not be applied to this product.",
     "noSalesChannels": "Not available in any sales channels",

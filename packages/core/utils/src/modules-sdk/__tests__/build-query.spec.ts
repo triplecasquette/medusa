@@ -1,5 +1,6 @@
-import { buildQuery } from "../build-query"
+import { FindConfig } from "@medusajs/types"
 import { SoftDeletableFilterKey } from "../../dal/mikro-orm/mikro-orm-soft-deletable-filter"
+import { buildQuery } from "../build-query"
 
 describe("buildQuery", () => {
   test("should return empty where and basic options when no filters or config provided", () => {
@@ -46,7 +47,7 @@ describe("buildQuery", () => {
   })
 
   test("should apply config options", () => {
-    const config = {
+    const config: FindConfig<any> = {
       relations: ["user", "order"],
       select: ["id", "name"],
       take: 10,

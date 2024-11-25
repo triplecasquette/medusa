@@ -3,6 +3,14 @@
  * type: object
  * description: The adjustment's details.
  * x-schemaName: BaseLineItemAdjustment
+ * required:
+ *   - item
+ *   - item_id
+ *   - id
+ *   - amount
+ *   - cart_id
+ *   - created_at
+ *   - updated_at
  * properties:
  *   item:
  *     $ref: "#/components/schemas/BaseCartLineItem"
@@ -48,14 +56,6 @@
  *     format: date-time
  *     title: updated_at
  *     description: The date the adjustment was updated.
- * required:
- *   - item
- *   - item_id
- *   - id
- *   - amount
- *   - cart_id
- *   - created_at
- *   - updated_at
  * 
 */
 

@@ -1,9 +1,8 @@
-import { Image, Product, ProductCategory, ProductCollection } from "@models"
+import { Product, ProductCategory, ProductCollection } from "@models"
 import {
   assignCategoriesToProduct,
   buildProductOnlyData,
   createCollections,
-  createImages,
   createProductAndTags,
   createProductVariants,
 } from "../__fixtures__/product"
@@ -15,13 +14,13 @@ import {
   ProductStatus,
   kebabCase,
 } from "@medusajs/framework/utils"
+import { moduleIntegrationTestRunner } from "@medusajs/test-utils"
 import { SqlEntityManager } from "@mikro-orm/postgresql"
 import {
   ProductCategoryService,
   ProductModuleService,
   ProductService,
 } from "@services"
-import { moduleIntegrationTestRunner } from "@medusajs/test-utils"
 import {
   categoriesData,
   productsData,
@@ -215,19 +214,12 @@ moduleIntegrationTestRunner<Service>({
       })
 
       describe("create", function () {
-        let images: Image[] = []
-
         beforeEach(async () => {
           testManager = await MikroOrmWrapper.forkManager()
-
-          images = await createImages(testManager, ["image-1"])
         })
 
         it("should create a product", async () => {
-          const data = buildProductOnlyData({
-            images,
-            thumbnail: images[0].url,
-          })
+          const data = buildProductOnlyData()
 
           const products = await service.create([data])
 
@@ -241,25 +233,15 @@ moduleIntegrationTestRunner<Service>({
               subtitle: data.subtitle,
               is_giftcard: data.is_giftcard,
               discountable: data.discountable,
-              thumbnail: images[0].url,
               status: data.status,
-              images: expect.arrayContaining([
-                expect.objectContaining({
-                  id: images[0].id,
-                  url: images[0].url,
-                }),
-              ]),
             })
           )
         })
       })
 
       describe("update", function () {
-        let images: Image[] = []
-
         beforeEach(async () => {
           testManager = await MikroOrmWrapper.forkManager()
-          images = await createImages(testManager, ["image-1", "image-2"])
 
           productOne = testManager.create(Product, {
             id: "product-1",
@@ -275,8 +257,6 @@ moduleIntegrationTestRunner<Service>({
             {
               id: productOne.id,
               title: "update test 1",
-              images: images,
-              thumbnail: images[0].url,
             },
           ]
 
@@ -284,24 +264,13 @@ moduleIntegrationTestRunner<Service>({
 
           expect(products.length).toEqual(1)
 
-          let result = await service.retrieve(productOne.id, {
-            relations: ["images", "thumbnail"],
-          })
+          let result = await service.retrieve(productOne.id)
           let serialized = JSON.parse(JSON.stringify(result))
 
           expect(serialized).toEqual(
             expect.objectContaining({
               id: productOne.id,
               title: "update test 1",
-              thumbnail: images[0].url,
-              images: [
-                expect.objectContaining({
-                  url: images[0].url,
-                }),
-                expect.objectContaining({
-                  url: images[1].url,
-                }),
-              ],
             })
           )
         })
@@ -750,19 +719,12 @@ moduleIntegrationTestRunner<Service>({
       })
 
       describe("softDelete", function () {
-        let images: Image[] = []
-
         beforeEach(async () => {
           testManager = await MikroOrmWrapper.forkManager()
-
-          images = await createImages(testManager, ["image-1"])
         })
 
         it("should soft delete a product", async () => {
-          const data = buildProductOnlyData({
-            images,
-            thumbnail: images[0].url,
-          })
+          const data = buildProductOnlyData()
 
           const products = await service.create([data])
           await service.softDelete(products.map((p) => p.id))
@@ -785,19 +747,12 @@ moduleIntegrationTestRunner<Service>({
       })
 
       describe("restore", function () {
-        let images: Image[] = []
-
         beforeEach(async () => {
           testManager = await MikroOrmWrapper.forkManager()
-
-          images = await createImages(testManager, ["image-1"])
         })
 
         it("should restore a soft deleted product", async () => {
-          const data = buildProductOnlyData({
-            images,
-            thumbnail: images[0].url,
-          })
+          const data = buildProductOnlyData()
 
           const products = await service.create([data])
           const product = products[0]

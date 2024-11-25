@@ -596,6 +596,10 @@ export interface ProductImageDTO {
    */
   url: string
   /**
+   * The rank of the product image.
+   */
+  rank: number
+  /**
    * Holds custom data in key-value pairs.
    */
   metadata?: MetadataType

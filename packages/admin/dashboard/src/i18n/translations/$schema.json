@@ -1578,6 +1578,12 @@
         "create": {
           "type": "object",
           "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
             "header": {
               "type": "string"
             },
@@ -1742,6 +1748,8 @@
             }
           },
           "required": [
+            "title",
+            "description",
             "header",
             "tabs",
             "errors",
@@ -1990,6 +1998,9 @@
                 "action"
               ],
               "additionalProperties": false
+            },
+            "successToast": {
+              "type": "string"
             }
           },
           "required": [
@@ -2008,7 +2019,8 @@
             "galleryLabel",
             "downloadImageLabel",
             "deleteImageLabel",
-            "emptyState"
+            "emptyState",
+            "successToast"
           ],
           "additionalProperties": false
         },

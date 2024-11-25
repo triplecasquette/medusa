@@ -74,6 +74,13 @@ medusaIntegrationTestRunner({
             // BREAKING: Type input changed from {type: {value: string}} to {type_id: string}
             type_id: baseType.id,
             tags: [{ id: baseTag1.id }, { id: baseTag2.id }],
+            images: [{
+                url: "image-one",
+              },
+              {
+                url: "image-two",
+              },
+            ],
           }),
           adminHeaders
         )
@@ -116,6 +123,24 @@ medusaIntegrationTestRunner({
 
     describe("/admin/products", () => {
       describe("GET /admin/products", () => {
+        it("returns a list of products with images ordered by rank", async () => {
+          const res = await api.get("/admin/products", adminHeaders)
+
+          expect(res.status).toEqual(200)
+          expect(res.data.products).toEqual(
+            expect.arrayContaining([
+              expect.objectContaining({
+                id: baseProduct.id,
+                images: expect.arrayContaining([
+                  expect.objectContaining({ url: "image-one", rank: 0 }),
+                  expect.objectContaining({ url: "image-two", rank: 1 }),
+                ]),
+              }),
+            ])
+          )
+        })
+      
+
         it("returns a list of products with all statuses when no status or invalid status is provided", async () => {
           const res = await api
             .get("/admin/products", adminHeaders)
@@ -963,6 +988,17 @@ medusaIntegrationTestRunner({
           const hasPrices = variants.some((variant) => !!variant.prices)
 
           expect(hasPrices).toBe(true)
+        })
+
+        it("should get a product with images ordered by rank", async () => {
+          const res = await api.get(`/admin/products/${baseProduct.id}`, adminHeaders)
+
+          expect(res.data.product.images).toEqual(
+            expect.arrayContaining([
+              expect.objectContaining({ url: "image-one", rank: 0 }),
+              expect.objectContaining({ url: "image-two", rank: 1 }),
+            ])
+          )
         })
 
         it("should get a product with prices", async () => {

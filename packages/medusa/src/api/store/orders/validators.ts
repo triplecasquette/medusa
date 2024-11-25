@@ -19,17 +19,28 @@ export const StoreGetOrdersParams = createFindParams({
 
 export type StoreGetOrdersParamsType = z.infer<typeof StoreGetOrdersParams>
 
-export const StoreAcceptOrderTransfer = z.object({
-  token: z.string().min(1),
-})
-
 export type StoreAcceptOrderTransferType = z.infer<
   typeof StoreAcceptOrderTransfer
 >
+export const StoreAcceptOrderTransfer = z.object({
+  token: z.string().min(1),
+})
 
 export type StoreRequestOrderTransferType = z.infer<
   typeof StoreRequestOrderTransfer
 >
 export const StoreRequestOrderTransfer = z.object({
   description: z.string().optional(),
+})
+
+export type StoreCancelOrderTransferRequestType = z.infer<
+  typeof StoreCancelOrderTransferRequest
+>
+export const StoreCancelOrderTransferRequest = z.object({})
+
+export type StoreDeclineOrderTransferRequestType = z.infer<
+  typeof StoreDeclineOrderTransferRequest
+>
+export const StoreDeclineOrderTransferRequest = z.object({
+  token: z.string().min(1),
 })

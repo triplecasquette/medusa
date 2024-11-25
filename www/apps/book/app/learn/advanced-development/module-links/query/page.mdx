@@ -150,7 +150,7 @@ const { data: productCustoms } = await query.graph({
     take: 5,
     skip: 0,
   },
-});
+})
 ```
 
 In the object passed to the `graph` method:
@@ -318,9 +318,9 @@ export default defineMiddlewares({
             defaults: [
               "id",
               "name",
-              "products.*"
+              "products.*",
             ],
-            isList: true
+            isList: true,
           }
         ),
       ],
@@ -371,7 +371,7 @@ export const GET = async (
 
   const { data: myCustoms } = await query.graph({
     entity: "my_custom",
-    ...req.remoteQueryConfig
+    ...req.remoteQueryConfig,
   })
 
   res.json({ my_customs: myCustoms })

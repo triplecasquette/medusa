@@ -3,6 +3,16 @@
  * type: object
  * description: The tax line's details
  * x-schemaName: BaseLineItemTaxLine
+ * required:
+ *   - item
+ *   - item_id
+ *   - total
+ *   - subtotal
+ *   - id
+ *   - code
+ *   - rate
+ *   - created_at
+ *   - updated_at
  * properties:
  *   item:
  *     $ref: "#/components/schemas/BaseCartLineItem"
@@ -52,16 +62,6 @@
  *     format: date-time
  *     title: updated_at
  *     description: The date the tax line was updated.
- * required:
- *   - item
- *   - item_id
- *   - total
- *   - subtotal
- *   - id
- *   - code
- *   - rate
- *   - created_at
- *   - updated_at
  * 
 */
 

@@ -1077,6 +1077,162 @@ export class Store {
         }
       )
     },
+
+    /**
+     * This method requests a order transfer from a guest account to the current, logged in customer account.
+     *
+     * Customer requesting the transfer must be logged in.
+     *
+     * @param body - The transfer's details.
+     * @param query - Configure the fields to retrieve in the order.
+     * @param headers - Headers to pass in the request.
+     * @returns The order details.
+     *
+     * @example
+     * sdk.store.order.requestTransfer(
+     *   "order_123",
+     *   {
+     *     description: "I want to transfer this order to my friend."
+     *   },
+     *   {},
+     *   {
+     *     Authorization: `Bearer ${token}`
+     *   }
+     * )
+     * .then(({ order }) => {
+     *   console.log(order)
+     * })
+     */
+    requestTransfer: async (
+      id: string,
+      body: HttpTypes.StoreRequestOrderTransfer,
+      query?: SelectParams,
+      headers?: ClientHeaders
+    ) => {
+      return this.client.fetch<HttpTypes.StoreOrderResponse>(
+        `/store/orders/${id}/transfer/request`,
+        {
+          method: "POST",
+          headers,
+          body,
+          query,
+        }
+      )
+    },
+    /**
+     * This method cancels an order transfer request.
+     *
+     * Customer requesting the transfer must be logged in.
+     *
+     * @param id - The order's ID.
+     * @param query - Configure the fields to retrieve in the order.
+     * @param headers - Headers to pass in the request.
+     * @returns The order details.
+     *
+     * @example
+     * sdk.store.order.cancelTransfer(
+     *   "order_123",
+     *   {},
+     *   {
+     *     Authorization: `Bearer ${token}`
+     *   }
+     * )
+     * .then(({ order }) => {
+     *   console.log(order)
+     * })
+     */
+    cancelTransfer: async (
+      id: string,
+      query?: SelectParams,
+      headers?: ClientHeaders
+    ) => {
+      return this.client.fetch<HttpTypes.StoreOrderResponse>(
+        `/store/orders/${id}/transfer/cancel`,
+        {
+          method: "POST",
+          headers,
+          query,
+        }
+      )
+    },
+    /**
+     * The method called for the original owner to accept the order transfer to a new owner.
+     *
+     * @param id - The order's ID.
+     * @param body - The payload containing the transfer token.
+     * @param query - Configure the fields to retrieve in the order.
+     * @param headers - Headers to pass in the request.
+     * @returns The order details.
+     *
+     * @example
+     * sdk.store.order.acceptTransfer(
+     *   "order_123",
+     *   {
+     *     token: "transfer_token"
+     *   },
+     *   {
+     *     Authorization: `Bearer ${token}`
+     *   }
+     * )
+     * .then(({ order }) => {
+     *   console.log(order)
+     * })
+     */
+    acceptTransfer: async (
+      id: string,
+      body: HttpTypes.StoreAcceptOrderTransfer,
+      query?: SelectParams,
+      headers?: ClientHeaders
+    ) => {
+      return this.client.fetch<HttpTypes.StoreOrderResponse>(
+        `/store/orders/${id}/transfer/accept`,
+        {
+          method: "POST",
+          headers,
+          body,
+          query,
+        }
+      )
+    },
+    /**
+     * The method called for the original owner to decline the order transfer to a new owner.
+     *
+     * @param id - The order's ID.
+     * @param body - The payload containing the transfer token.
+     * @param query - Configure the fields to retrieve in the order.
+     * @param headers - Headers to pass in the request.
+     * @returns The order details.
+     *
+     * @example
+     * sdk.store.order.declineTransfer(
+     *   "order_123",
+     *   {
+     *     token: "transfer_token"
+     *   },
+     *   {
+     *     Authorization: `Bearer ${token}`
+     *   }
+     * )
+     * .then(({ order }) => {
+     *   console.log(order)
+     * })
+     */
+    declineTransfer: async (
+      id: string,
+      body: HttpTypes.StoreDeclineOrderTransfer,
+      query?: SelectParams,
+      headers?: ClientHeaders
+    ) => {
+      return this.client.fetch<HttpTypes.StoreOrderResponse>(
+        `/store/orders/${id}/transfer/decline`,
+        {
+          method: "POST",
+          headers,
+          body,
+          query,
+        }
+      )
+    },
   }
 
   public customer = {

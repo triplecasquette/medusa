@@ -133,8 +133,8 @@ export const loaderHighlights = [
 
 ```ts title="src/modules/mongo/loaders/connection.ts" highlights={loaderHighlights}
 import { LoaderOptions } from "@medusajs/framework/types"
-import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
-import { asValue } from "awilix";
+import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
+import { asValue } from "awilix"
 import { MongoClient } from "mongodb"
 
 type ModuleOptions = {
@@ -144,7 +144,7 @@ type ModuleOptions = {
 
 export default async function mongoConnectionLoader({
   container,
-  options
+  options,
 }: LoaderOptions<ModuleOptions>) {
   if (!options.connection_url) {
     throw new Error(`[MONGO MDOULE]: connection_url option is required.`)
@@ -187,10 +187,10 @@ module.exports = defineConfig({
       resolve: "./src/modules/mongo",
       options: {
         connection_url: process.env.MONGO_CONNECTION_URL,
-        db_name: process.env.MONGO_DB_NAME
-      }
-    }
-  ]
+        db_name: process.env.MONGO_DB_NAME,
+      },
+    },
+  ],
 })
 ```
 
@@ -239,11 +239,11 @@ export default class MongoModuleService {
     const moviesCol = this.mongoClient_.collection("movie")
 
     const insertedMovie = await moviesCol.insertOne({
-      title
+      title,
     })
 
     const movie = await moviesCol.findOne({
-      _id: insertedMovie.insertedId
+      _id: insertedMovie.insertedId,
     })
 
     return movie
@@ -254,8 +254,8 @@ export default class MongoModuleService {
 
     await moviesCol.deleteOne({
       _id: {
-        equals: id
-      }
+        equals: id,
+      },
     })
   }
 }
@@ -274,7 +274,7 @@ export const MONGO_MODULE = "mongo"
 
 export default Module(MONGO_MODULE, {
   service: MongoModuleService,
-  loaders: [mongoConnectionLoader]
+  loaders: [mongoConnectionLoader],
 })
 ```
 
