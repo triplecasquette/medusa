@@ -23,7 +23,6 @@ import {
   findOneOrAnyRegionStep,
   findOrCreateCustomerStep,
   findSalesChannelStep,
-  getVariantPriceSetsStep,
 } from "../steps"
 import { validateVariantPricesStep } from "../steps/validate-variant-prices"
 import { productVariantsFields } from "../utils/fields"
@@ -99,11 +98,6 @@ export const createCartWorkflow = createWorkflow(
       },
     })
 
-    const priceSets = getVariantPriceSetsStep({
-      variantIds,
-      context: pricingContext,
-    })
-
     const cartInput = transform(
       { input, region, customerData, salesChannel },
       (data) => {
@@ -140,29 +134,12 @@ export const createCartWorkflow = createWorkflow(
       }
     )
 
-    const lineItems = transform({ priceSets, input, variants }, (data) => {
+    const lineItems = transform({ input, variants }, (data) => {
       const items = (data.input.items ?? []).map((item) => {
         const variant = data.variants.find((v) => v.id === item.variant_id)!
-        const variantPrice = item.variant_id
-          ? data.priceSets[item.variant_id]
-          : undefined
-
-        const unitPrice = item.unit_price || variantPrice?.calculated_amount
-        const isTaxInclusive =
-          item.is_tax_inclusive ||
-          variantPrice?.is_calculated_price_tax_inclusive
-
-        if (!isDefined(unitPrice)) {
-          throw new MedusaError(
-            MedusaError.Types.INVALID_DATA,
-            "Line item missing a unit price"
-          )
-        }
 
         return prepareLineItemData({
           item,
-          unitPrice,
-          isTaxInclusive,
           variant,
         })
       })

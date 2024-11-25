@@ -841,7 +841,7 @@ medusaIntegrationTestRunner({
             expect.objectContaining({
               id: cart.id,
               currency_code: "usd",
-              items: expect.arrayContaining([
+              items: [
                 {
                   cart_id: expect.any(String),
                   compare_at_unit_price: null,
@@ -850,6 +850,7 @@ medusaIntegrationTestRunner({
                   id: expect.any(String),
                   is_discountable: false,
                   is_tax_inclusive: false,
+                  is_custom_price: true,
                   metadata: {
                     foo: "bar",
                   },
@@ -879,7 +880,7 @@ medusaIntegrationTestRunner({
                   variant_sku: null,
                   variant_title: null,
                 },
-              ]),
+              ],
             })
           )
         })

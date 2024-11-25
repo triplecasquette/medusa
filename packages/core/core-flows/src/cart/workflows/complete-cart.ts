@@ -118,10 +118,6 @@ export const completeCartWorkflow = createWorkflow(
           return prepareLineItemData({
             item,
             variant: item.variant,
-            unitPrice: item.raw_unit_price ?? item.unit_price,
-            compareAtUnitPrice:
-              item.raw_compare_at_unit_price ?? item.compare_at_unit_price,
-            isTaxInclusive: item.is_tax_inclusive,
             taxLines: item.tax_lines ?? [],
             adjustments: item.adjustments ?? [],
           })

@@ -19,14 +19,14 @@ interface Output {
 export function prepareCustomLineItemData(
   data: Omit<PrepareLineItemDataInput, "variant">
 ): Output {
-  const { item, unitPrice, isTaxInclusive, taxLines, adjustments } = data
+  const { item, taxLines, adjustments } = data
 
   const lineItem: any = {
     quantity: item?.quantity,
     title: item?.title,
 
-    unit_price: unitPrice,
-    is_tax_inclusive: !!isTaxInclusive,
+    // unit_price: unitPrice,
+    // is_tax_inclusive: !!isTaxInclusive,
     metadata: item?.metadata ?? {},
   }
 

@@ -71,9 +71,6 @@ export const refreshCartItemsWorkflow = createWorkflow(
 
         const preparedItem = prepareLineItemData({
           variant: variant,
-          unitPrice: variant.calculated_price.calculated_amount,
-          isTaxInclusive:
-            variant.calculated_price.is_calculated_price_tax_inclusive,
           cartId: cart.id,
         })
 

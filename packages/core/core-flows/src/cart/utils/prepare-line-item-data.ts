@@ -7,7 +7,12 @@ import {
   LineItemTaxLineDTO,
   ProductVariantDTO,
 } from "@medusajs/framework/types"
-import { isDefined, MathBN, PriceListType } from "@medusajs/framework/utils"
+import {
+  isDefined,
+  MathBN,
+  MedusaError,
+  PriceListType,
+} from "@medusajs/framework/utils"
 
 interface PrepareItemLineItemInput {
   title?: string
@@ -35,6 +40,7 @@ interface PrepareItemLineItemInput {
   is_discountable?: boolean
   is_tax_inclusive?: boolean
 
+  raw_compare_at_unit_price?: BigNumberInput
   compare_at_unit_price?: BigNumberInput
   unit_price?: BigNumberInput
 
@@ -50,6 +56,7 @@ interface PrepareVariantLineItemInput extends ProductVariantDTO {
     calculated_price: {
       price_list_type: string
     }
+    is_calculated_price_tax_inclusive: boolean
     original_amount: BigNumberInput
     calculated_amount: BigNumberInput
   }
@@ -57,31 +64,35 @@ interface PrepareVariantLineItemInput extends ProductVariantDTO {
 
 export interface PrepareLineItemDataInput {
   item?: PrepareItemLineItemInput
-  unitPrice: BigNumberInput
-  compareAtUnitPrice?: BigNumberInput | null
-  isTaxInclusive?: boolean
+  // unitPrice: BigNumberInput
+  // compareAtUnitPrice?: BigNumberInput | null
+  // isTaxInclusive?: boolean
   variant?: PrepareVariantLineItemInput
   taxLines?: CreateOrderLineItemTaxLineDTO[]
   adjustments?: CreateOrderAdjustmentDTO[]
   cartId?: string
 }
 
-export function prepareLineItemData(data: PrepareLineItemDataInput) {
-  const {
-    item,
-    variant,
-    unitPrice,
-    isTaxInclusive,
-    cartId,
-    taxLines,
-    adjustments,
-  } = data
+function setItemPricing(
+  item?: PrepareItemLineItemInput,
+  variant?: PrepareVariantLineItemInput
+) {
+  const unitPrice =
+    item?.unit_price || variant?.calculated_price.calculated_amount
+  const isTaxInclusive =
+    item?.is_tax_inclusive ||
+    variant?.calculated_price.is_calculated_price_tax_inclusive
 
-  if (variant && !variant.product) {
-    throw new Error("Variant does not have a product")
+  if (!isDefined(unitPrice)) {
+    throw new MedusaError(
+      MedusaError.Types.INVALID_DATA,
+      "Line item missing a unit price"
+    )
   }
 
-  let compareAtUnitPrice = data.compareAtUnitPrice
+  let compareAtUnitPrice =
+    item?.raw_compare_at_unit_price ?? item?.compare_at_unit_price
+
   const isSalePrice = !!(
     variant?.calculated_price.calculated_price.price_list_type ===
     PriceListType.SALE
@@ -97,6 +108,28 @@ export function prepareLineItemData(data: PrepareLineItemDataInput) {
   ) {
     compareAtUnitPrice = variant.calculated_price.original_amount
   }
+
+  return {
+    unit_price: unitPrice,
+    compare_at_unit_price: compareAtUnitPrice,
+    is_tax_inclusive: isTaxInclusive,
+    is_custom_price: !!item?.unit_price, // We assume that if the unit price is set, it is a custom price and not associated with a variant
+  }
+}
+
+export function prepareLineItemData(data: PrepareLineItemDataInput) {
+  const { item, variant, cartId, taxLines, adjustments } = data
+
+  if (variant && !variant.product) {
+    throw new Error("Variant does not have a product")
+  }
+
+  const {
+    unit_price,
+    is_tax_inclusive,
+    is_custom_price,
+    compare_at_unit_price,
+  } = setItemPricing(item, variant)
 
   // Note: If any of the items require shipping, we enable fulfillment
   // unless explicitly set to not require shipping by the item in the request
@@ -137,9 +170,10 @@ export function prepareLineItemData(data: PrepareLineItemDataInput) {
     is_discountable: item?.is_discountable ?? variant?.product?.discountable,
     requires_shipping: requiresShipping,
 
-    unit_price: unitPrice,
-    compare_at_unit_price: compareAtUnitPrice,
-    is_tax_inclusive: !!isTaxInclusive,
+    unit_price,
+    compare_at_unit_price,
+    is_tax_inclusive,
+    is_custom_price,
 
     metadata: item?.metadata ?? {},
   }

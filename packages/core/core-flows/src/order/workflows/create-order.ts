@@ -1,5 +1,5 @@
 import { AdditionalData, CreateOrderDTO } from "@medusajs/framework/types"
-import { MedusaError, isDefined, isPresent } from "@medusajs/framework/utils"
+import { MedusaError, isPresent } from "@medusajs/framework/utils"
 import {
   WorkflowData,
   WorkflowResponse,
@@ -11,7 +11,6 @@ import {
 import { findOneOrAnyRegionStep } from "../../cart/steps/find-one-or-any-region"
 import { findOrCreateCustomerStep } from "../../cart/steps/find-or-create-customer"
 import { findSalesChannelStep } from "../../cart/steps/find-sales-channel"
-import { getVariantPriceSetsStep } from "../../cart/steps/get-variant-price-sets"
 import { validateVariantPricesStep } from "../../cart/steps/validate-variant-prices"
 import { prepareLineItemData } from "../../cart/utils/prepare-line-item-data"
 import { confirmVariantInventoryWorkflow } from "../../cart/workflows/confirm-variant-inventory"
@@ -24,24 +23,8 @@ function prepareLineItems(data) {
   const items = (data.input.items ?? []).map((item) => {
     const variant = data.variants.find((v) => v.id === item.variant_id)!
 
-    const unitPrice =
-      item.unit_price ??
-      data.priceSets[item.variant_id!]?.is_calculated_price_tax_inclusive
-    const isTaxInclusive =
-      item.is_tax_inclusive ??
-      data.priceSets[item.variant_id!]?.raw_calculated_amount
-
-    if (!isDefined(unitPrice)) {
-      throw new MedusaError(
-        MedusaError.Types.INVALID_DATA,
-        "Line item missing a unit price"
-      )
-    }
-
     return prepareLineItemData({
       variant: variant,
-      unitPrice,
-      isTaxInclusive,
       taxLines: item.tax_lines || [],
       adjustments: item.adjustments || [],
       item,
@@ -142,20 +125,12 @@ export const createOrderWorkflow = createWorkflow(
       },
     })
 
-    const priceSets = getVariantPriceSetsStep({
-      variantIds,
-      context: pricingContext,
-    })
-
     const orderInput = transform(
       { input, region, customerData, salesChannel },
       getOrderInput
     )
 
-    const lineItems = transform(
-      { priceSets, input, variants },
-      prepareLineItems
-    )
+    const lineItems = transform({ input, variants }, prepareLineItems)
 
     const orderToCreate = transform({ lineItems, orderInput }, (data) => {
       return {

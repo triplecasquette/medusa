@@ -1,5 +1,5 @@
 import { OrderLineItemDTO, OrderWorkflow } from "@medusajs/framework/types"
-import { MathBN, MedusaError } from "@medusajs/framework/utils"
+import { MedusaError } from "@medusajs/framework/utils"
 import {
   WorkflowData,
   WorkflowResponse,
@@ -10,45 +10,19 @@ import {
 import { findOneOrAnyRegionStep } from "../../cart/steps/find-one-or-any-region"
 import { findOrCreateCustomerStep } from "../../cart/steps/find-or-create-customer"
 import { findSalesChannelStep } from "../../cart/steps/find-sales-channel"
-import { getVariantPriceSetsStep } from "../../cart/steps/get-variant-price-sets"
 import { validateVariantPricesStep } from "../../cart/steps/validate-variant-prices"
 import { prepareLineItemData } from "../../cart/utils/prepare-line-item-data"
 import { confirmVariantInventoryWorkflow } from "../../cart/workflows/confirm-variant-inventory"
 import { useRemoteQueryStep } from "../../common"
 import { createOrderLineItemsStep } from "../steps"
 import { productVariantsFields } from "../utils/fields"
-import { prepareCustomLineItemData } from "../utils/prepare-custom-line-item-data"
 
 function prepareLineItems(data) {
   const items = (data.input.items ?? []).map((item) => {
     const variant = data.variants.find((v) => v.id === item.variant_id)!
 
-    if (!variant) {
-      return prepareCustomLineItemData({
-        variant: {
-          ...item,
-        },
-        unitPrice: MathBN.max(0, item.unit_price),
-        isTaxInclusive:
-          item.is_tax_inclusive ??
-          data.priceSets[item.variant_id!]?.is_calculated_price_tax_inclusive,
-        quantity: item.quantity as number,
-        metadata: item?.metadata,
-        taxLines: item.tax_lines || [],
-        adjustments: item.adjustments || [],
-      })
-    }
-
     return prepareLineItemData({
       variant: variant,
-      unitPrice: MathBN.max(
-        0,
-        item.unit_price ??
-          data.priceSets[item.variant_id!]?.raw_calculated_amount
-      ),
-      isTaxInclusive:
-        item.is_tax_inclusive ??
-        data.priceSets[item.variant_id!]?.is_calculated_price_tax_inclusive,
       taxLines: item.tax_lines || [],
       adjustments: item.adjustments || [],
     })
@@ -137,15 +111,7 @@ export const addOrderLineItemsWorkflow = createWorkflow(
       },
     })
 
-    const priceSets = getVariantPriceSetsStep({
-      variantIds,
-      context: pricingContext,
-    })
-
-    const lineItems = transform(
-      { priceSets, input, variants },
-      prepareLineItems
-    )
+    const lineItems = transform({ input, variants }, prepareLineItems)
 
     return new WorkflowResponse(
       createOrderLineItemsStep({

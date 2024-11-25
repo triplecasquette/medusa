@@ -149,6 +149,9 @@ export default class LineItem {
   @Property({ columnType: "boolean" })
   is_tax_inclusive: boolean = false
 
+  @Property({ columnType: "boolean", default: false })
+  is_custom_price: boolean = false
+
   @MikroOrmBigNumberProperty({ nullable: true })
   compare_at_unit_price?: BigNumber | number | null = null
 

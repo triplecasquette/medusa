@@ -2,11 +2,7 @@ import {
   AddToCartWorkflowInputDTO,
   CreateLineItemForCartDTO,
 } from "@medusajs/framework/types"
-import {
-  CartWorkflowEvents,
-  isDefined,
-  MedusaError,
-} from "@medusajs/framework/utils"
+import { CartWorkflowEvents, isDefined } from "@medusajs/framework/utils"
 import {
   createWorkflow,
   parallelize,
@@ -81,24 +77,9 @@ export const addToCartWorkflow = createWorkflow(
           (v) => v.id === item.variant_id
         )!
 
-        const unitPrice =
-          item.unit_price || variant?.calculated_price.calculated_amount
-        const isTaxInclusive =
-          item.is_tax_inclusive ||
-          variant?.calculated_price.is_calculated_price_tax_inclusive
-
-        if (!isDefined(unitPrice)) {
-          throw new MedusaError(
-            MedusaError.Types.INVALID_DATA,
-            "Line item missing a unit price"
-          )
-        }
-
         return prepareLineItemData({
           item,
           variant,
-          unitPrice,
-          isTaxInclusive,
           cartId: data.input.cart.id,
         }) as CreateLineItemForCartDTO
       })
