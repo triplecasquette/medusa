@@ -9138,6 +9138,17 @@ export const generatedSidebar = [
           {
             "loaded": true,
             "isPathHref": true,
+            "type": "link",
+            "title": "Medusa Cloud",
+            "path": "https://medusajs.com/contact",
+            "children": []
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "loaded": true,
+            "isPathHref": true,
             "type": "category",
             "title": "Medusa Application",
             "children": [

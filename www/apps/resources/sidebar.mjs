@@ -2150,6 +2150,14 @@ export const sidebar = sidebarAttachHrefCommonOptions([
         isChildSidebar: true,
         children: [
           {
+            type: "link",
+            title: "Medusa Cloud",
+            path: "https://medusajs.com/contact",
+          },
+          {
+            type: "separator",
+          },
+          {
             type: "category",
             title: "Medusa Application",
             children: [

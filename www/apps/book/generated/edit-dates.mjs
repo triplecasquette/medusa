@@ -1,7 +1,7 @@
 export const generatedEditDates = {
   "app/learn/basics/scheduled-jobs/page.mdx": "2024-09-30T08:43:53.132Z",
   "app/learn/basics/workflows/page.mdx": "2024-09-30T08:43:53.132Z",
-  "app/learn/deployment/page.mdx": "2024-11-11T11:03:59.725Z",
+  "app/learn/deployment/page.mdx": "2024-11-25T14:32:44.949Z",
   "app/learn/page.mdx": "2024-09-03T07:09:09.034Z",
   "app/learn/basics/commerce-modules/page.mdx": "2024-11-21T16:24:19.136Z",
   "app/learn/advanced-development/workflows/retry-failed-steps/page.mdx": "2024-09-30T08:43:53.130Z",
@@ -115,6 +115,6 @@ export const generatedEditDates = {
   "app/learn/basics/modules/page.mdx": "2024-11-21T14:09:42.197Z",
   "app/learn/advanced-development/environment-variables/page.mdx": "2024-10-25T14:59:07.831Z",
   "app/learn/build/page.mdx": "2024-11-11T11:08:41.832Z",
-  "app/learn/deployment/general/page.mdx": "2024-11-11T11:50:04.248Z",
+  "app/learn/deployment/general/page.mdx": "2024-11-25T14:33:50.439Z",
   "app/learn/advanced-development/workflows/multiple-step-usage/page.mdx": "2024-11-12T11:11:49.191Z"
 }
