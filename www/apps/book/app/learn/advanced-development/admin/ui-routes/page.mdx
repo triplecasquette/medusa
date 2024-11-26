@@ -1,3 +1,5 @@
+import { Prerequisites } from "docs-ui"
+
 export const metadata = {
   title: `${pageNumber} Admin UI Routes`,
 }
@@ -8,15 +10,22 @@ In this chapter, you’ll learn how to create a UI route in the admin dashboard.
 
 ## What is a UI Route?
 
-A UI route is a React Component that adds a new page to your admin dashboard. The UI Route can be shown in the sidebar or added as a nested page.
+The Medusa Admin dashboard is customizable, allowing you to add new pages, called UI routes. You create a UI route as a React component showing custom content that allow admin users to perform custom actions.
 
-For example, you may add a new page to manage product reviews.
+For example, you can add a new page to show and manage product reviews, which aren't available natively in Medusa.
 
 ---
 
 ## How to Create a UI Route?
 
-A UI route is created in a file named `page.tsx` under the `src/admin/routes` directory. The file’s default export must be the UI route’s React component.
+<Prerequisites
+  items={[{
+    link: "/learn/installation",
+    text: "Medusa application installed"
+  }]}
+/>
+
+You create a UI route in a `page.tsx` file under a sub-directory of `src/admin/routes` directory. The file's path relative to `src/admin/routes` determines its path in the dashboard. The file’s default export must be the UI route’s React component.
 
 For example, create the file `src/admin/routes/custom/page.tsx` with the following content:
 
@@ -36,7 +45,9 @@ const CustomPage = () => {
 export default CustomPage
 ```
 
-The new page’s path is the file’s path relative to `src/admin/routes`. So, the above UI route is a new page added at the path `localhost:9000/app/custom`. 
+You add a new route at `http://localhost:9000/app/custom`. The `CustomPage` component holds the page's content, which currently only shows a heading.
+
+In the route, you use [Medusa UI](!ui!), a package that Medusa maintains to allow you to customize the dashboard with the same components used to build it.
 
 <Note title="Important" type="warning">
 
@@ -44,9 +55,7 @@ The UI route component must be created as an arrow function.
 
 </Note>
 
----
-
-## Test the UI Route
+### Test the UI Route
 
 To test the UI route, start the Medusa application:
 
@@ -54,15 +63,13 @@ To test the UI route, start the Medusa application:
 npm run dev
 ```
 
-Then, after logging into the admin dashboard, open the page `localhost:9000/app/custom` to see your custom page.
+Then, after logging into the admin dashboard, open the page `http://localhost:9000/app/custom` to see your custom page.
 
 ---
 
 ## Show UI Route in the Sidebar
 
-A UI route file can export a configuration object that indicates a new item must be added in the sidebar linking to the new UI route.
-
-For example:
+To add a sidebar item for your custom UI route, export a configuration object in the UI route's file:
 
 export const highlights = [
   ["16", "label", "The label of the UI route's sidebar item."],
@@ -138,9 +145,9 @@ Some caveats for nested UI routes in the sidebar:
 
 ## Create Settings Page
 
-To create a page under the settings section of the admin dashboard, create the UI route file under the path `src/admin/routes/settings`.
+To create a page under the settings section of the admin dashboard, create a UI route under the path `src/admin/routes/settings`.
 
-For example:
+For example, create a UI route at `src/admin/routes/settings/custom/page.tsx`:
 
 ```tsx title="src/admin/routes/settings/custom/page.tsx"
 import { defineRouteConfig } from "@medusajs/admin-sdk"
