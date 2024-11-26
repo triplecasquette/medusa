@@ -64,9 +64,7 @@ interface PrepareVariantLineItemInput extends ProductVariantDTO {
 
 export interface PrepareLineItemDataInput {
   item?: PrepareItemLineItemInput
-  // unitPrice: BigNumberInput
-  // compareAtUnitPrice?: BigNumberInput | null
-  // isTaxInclusive?: boolean
+  isCustomPrice?: boolean
   variant?: PrepareVariantLineItemInput
   taxLines?: CreateOrderLineItemTaxLineDTO[]
   adjustments?: CreateOrderAdjustmentDTO[]
@@ -77,11 +75,12 @@ function setItemPricing(
   item?: PrepareItemLineItemInput,
   variant?: PrepareVariantLineItemInput
 ) {
-  const unitPrice =
-    item?.unit_price || variant?.calculated_price.calculated_amount
-  const isTaxInclusive =
-    item?.is_tax_inclusive ||
-    variant?.calculated_price.is_calculated_price_tax_inclusive
+  const unitPrice = isDefined(item?.unit_price)
+    ? item.unit_price
+    : variant?.calculated_price?.calculated_amount
+  const isTaxInclusive = isDefined(item?.is_tax_inclusive)
+    ? item.is_tax_inclusive
+    : variant?.calculated_price?.is_calculated_price_tax_inclusive
 
   if (!isDefined(unitPrice)) {
     throw new MedusaError(
@@ -94,7 +93,7 @@ function setItemPricing(
     item?.raw_compare_at_unit_price ?? item?.compare_at_unit_price
 
   const isSalePrice = !!(
-    variant?.calculated_price.calculated_price.price_list_type ===
+    variant?.calculated_price?.calculated_price?.price_list_type ===
     PriceListType.SALE
   )
 
@@ -102,8 +101,8 @@ function setItemPricing(
     !isDefined(compareAtUnitPrice) &&
     isSalePrice &&
     !MathBN.eq(
-      variant.calculated_price.original_amount,
-      variant.calculated_price.calculated_amount
+      variant.calculated_price?.original_amount,
+      variant.calculated_price?.calculated_amount
     )
   ) {
     compareAtUnitPrice = variant.calculated_price.original_amount
@@ -113,23 +112,18 @@ function setItemPricing(
     unit_price: unitPrice,
     compare_at_unit_price: compareAtUnitPrice,
     is_tax_inclusive: isTaxInclusive,
-    is_custom_price: !!item?.unit_price, // We assume that if the unit price is set, it is a custom price and not associated with a variant
   }
 }
 
 export function prepareLineItemData(data: PrepareLineItemDataInput) {
-  const { item, variant, cartId, taxLines, adjustments } = data
+  const { item, variant, cartId, taxLines, adjustments, isCustomPrice } = data
 
   if (variant && !variant.product) {
     throw new Error("Variant does not have a product")
   }
 
-  const {
-    unit_price,
-    is_tax_inclusive,
-    is_custom_price,
-    compare_at_unit_price,
-  } = setItemPricing(item, variant)
+  const { unit_price, is_tax_inclusive, compare_at_unit_price } =
+    setItemPricing(item, variant)
 
   // Note: If any of the items require shipping, we enable fulfillment
   // unless explicitly set to not require shipping by the item in the request
@@ -143,7 +137,7 @@ export function prepareLineItemData(data: PrepareLineItemDataInput) {
     ? item.requires_shipping
     : someInventoryRequiresShipping
 
-  const lineItem: any = {
+  let lineItem: any = {
     quantity: item?.quantity ?? {},
     title: item?.title ?? variant?.title,
     subtitle: item?.subtitle ?? variant?.product?.subtitle,
@@ -173,9 +167,12 @@ export function prepareLineItemData(data: PrepareLineItemDataInput) {
     unit_price,
     compare_at_unit_price,
     is_tax_inclusive,
-    is_custom_price,
 
     metadata: item?.metadata ?? {},
+  }
+
+  if (isCustomPrice) {
+    lineItem.is_custom_price = !!isCustomPrice
   }
 
   if (taxLines) {

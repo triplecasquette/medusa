@@ -7,6 +7,7 @@ import {
   createWorkflow,
   parallelize,
   transform,
+  when,
 } from "@medusajs/framework/workflows-sdk"
 import { findOneOrAnyRegionStep } from "../../cart/steps/find-one-or-any-region"
 import { findOrCreateCustomerStep } from "../../cart/steps/find-or-create-customer"
@@ -28,6 +29,7 @@ function prepareLineItems(data) {
       taxLines: item.tax_lines || [],
       adjustments: item.adjustments || [],
       item,
+      isCustomPrice: !!item.is_custom_price,
     })
   })
 
@@ -103,16 +105,20 @@ export const createOrderWorkflow = createWorkflow(
       }
     )
 
-    const variants = useRemoteQueryStep({
-      entry_point: "variants",
-      fields: productVariantsFields,
-      variables: {
-        id: variantIds,
-        calculated_price: {
-          context: pricingContext,
+    const variants = when({ variantIds }, ({ variantIds }) => {
+      return !!variantIds.length
+    }).then(() => {
+      return useRemoteQueryStep({
+        entry_point: "variants",
+        fields: productVariantsFields,
+        variables: {
+          id: variantIds,
+          calculated_price: {
+            context: pricingContext,
+          },
         },
-      },
-      throw_if_key_not_found: true,
+        throw_if_key_not_found: true,
+      })
     })
 
     validateVariantPricesStep({ variants })

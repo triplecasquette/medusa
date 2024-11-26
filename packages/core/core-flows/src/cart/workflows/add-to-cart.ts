@@ -81,6 +81,7 @@ export const addToCartWorkflow = createWorkflow(
           item,
           variant,
           cartId: data.input.cart.id,
+          isCustomPrice: isDefined(item?.unit_price),
         }) as CreateLineItemForCartDTO
       })
 

@@ -120,6 +120,7 @@ export const completeCartWorkflow = createWorkflow(
             variant: item.variant,
             taxLines: item.tax_lines ?? [],
             adjustments: item.adjustments ?? [],
+            isCustomPrice: !!item.is_custom_price,
           })
         })
 

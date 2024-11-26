@@ -2,6 +2,7 @@ import { isDefined, PromotionActions } from "@medusajs/framework/utils"
 import {
   createWorkflow,
   transform,
+  when,
   WorkflowData,
   WorkflowResponse,
 } from "@medusajs/framework/workflows-sdk"
@@ -37,7 +38,7 @@ export const refreshCartItemsWorkflow = createWorkflow(
     })
 
     const variantIds = transform({ cart }, (data) => {
-      return (data.cart.items ?? []).map((i) => i.variant_id)
+      return (data.cart.items ?? []).map((i) => i.variant_id).filter(isDefined)
     })
 
     const pricingContext = transform(
@@ -51,17 +52,21 @@ export const refreshCartItemsWorkflow = createWorkflow(
       }
     )
 
-    const variants = useRemoteQueryStep({
-      entry_point: "variants",
-      fields: productVariantsFields,
-      variables: {
-        id: variantIds,
-        calculated_price: {
-          context: pricingContext,
+    const variants = when({ variantIds }, ({ variantIds }) => {
+      return !!variantIds.length
+    }).then(() => {
+      return useRemoteQueryStep({
+        entry_point: "variants",
+        fields: productVariantsFields,
+        variables: {
+          id: variantIds,
+          calculated_price: {
+            context: pricingContext,
+          },
         },
-      },
-      throw_if_key_not_found: true,
-    }).config({ name: "fetch-variants" })
+        throw_if_key_not_found: true,
+      }).config({ name: "fetch-variants" })
+    })
 
     validateVariantPricesStep({ variants })
 
@@ -70,6 +75,7 @@ export const refreshCartItemsWorkflow = createWorkflow(
         const variant = variants.find((v) => v.id === item.variant_id)!
 
         const preparedItem = prepareLineItemData({
+          item,
           variant: variant,
           cartId: cart.id,
         })

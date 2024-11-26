@@ -621,8 +621,8 @@
           "nullable": false,
           "mappedType": "boolean"
         },
-        "has_custom_price": {
-          "name": "has_custom_price",
+        "is_custom_price": {
+          "name": "is_custom_price",
           "type": "boolean",
           "unsigned": false,
           "autoincrement": false,

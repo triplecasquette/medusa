@@ -141,6 +141,7 @@ export const createCartWorkflow = createWorkflow(
         return prepareLineItemData({
           item,
           variant,
+          isCustomPrice: isDefined(item?.unit_price),
         })
       })
 
