@@ -229,8 +229,8 @@ AUTH_CORS= # STOREFRONT AND ADMIN URLS, SEPARATED BY COMMAS
 DISABLE_MEDUSA_ADMIN=true
 MEDUSA_WORKER_MODE=server
 PORT=9000
-DATABASE_URL=${{Postgres.DATABASE_PUBLIC_URL}}
-REDIS_URL=${{Redis.REDIS_PUBLIC_URL}}
+DATABASE_URL=${{Postgres.RAILWAY_PRIVATE_DOMAIN}}
+REDIS_URL=${{Redis.REDIS_URL}}?family=0
 ```
 
 Where:
@@ -240,6 +240,7 @@ Where:
 - `ADMIN_CORS`'s value is the URL of the admin dashboard. If you don’t have it yet, or you’re deploying the admin with the Medusa application, you can skip adding it for now.
 - `AUTH_CORS`'s value is the URLs of any application authenticating users, customers, or other actor types, such as the storefront and admin URLs. The URLs are separated by commas. If you don’t have the URLs yet, you can set its value later.
 - Change `DISABLE_MEDUSA_ADMIN` to `false` if you’re hosting the admin with the Medusa application.
+- `REDIS_URL`'s value is automatically generated using Railway’s template syntax. You add the `?family=0` to the connection string to support both IPv6 and IPv4 connections.
 
 Feel free to add any other relevant environment variables. Once you’re done, click the Update Variables button.
 
@@ -337,14 +338,15 @@ JWT_SECRET=supersecret  # TODO GENERATE SECURE SECRET
 DISABLE_MEDUSA_ADMIN=true
 MEDUSA_WORKER_MODE=worker
 PORT=9000
-DATABASE_URL=${{Postgres.DATABASE_PUBLIC_URL}}
-REDIS_URL=${{Redis.REDIS_PUBLIC_URL}}
+DATABASE_URL=${{Postgres.RAILWAY_PRIVATE_DOMAIN}}
+REDIS_URL=${{Redis.REDIS_URL}}?family=0
 ```
 
 Where:
 
 - The value of `COOKIE_SECRET` and `JWT_SECRET` must be a randomly generated secret.
 - Keep `DISABLE_MEDUSA_ADMIN`'s value set to `true`, even if you’re hosting the admin with the Medusa application.
+- `REDIS_URL`'s value is automatically generated using Railway’s template syntax. You add the `?family=0` to the connection string to support both IPv6 and IPv4 connections.
 
 Feel free to add any other relevant environment variables. Once you’re done, click the Update Variables button.
 

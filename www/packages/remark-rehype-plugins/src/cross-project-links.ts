@@ -40,9 +40,9 @@ function matchAndFixLinks(
     Object.hasOwn(projectUrls, projectArea.groups.area) &&
     projectUrls[projectArea.groups.area]?.path !== undefined
       ? projectUrls[projectArea.groups.area].path
-      : projectArea.groups.area
+      : `/${projectArea.groups.area}`
 
-  return `${base}/${path}${actualUrl}`
+  return `${base}${path}${actualUrl}`
 }
 
 function linkElmFixer(node: UnistNode, options: CrossProjectLinksOptions) {

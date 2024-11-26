@@ -36,7 +36,7 @@ export const GET = (
 
 This creates a `GET` API route at `/hello-world`.
 
-Learn more in [this documentation](!docs!/basics/api-routes).
+Learn more in [this documentation](!docs!/learn/basics/api-routes).
 
 ### Resolve Resources in API Route
 
@@ -65,7 +65,7 @@ export const GET = async (
 
 This resolves the Product Module's main service.
 
-Learn more in [this documentation](!docs!/basics/medusa-container).
+Learn more in [this documentation](!docs!/learn/basics/medusa-container).
 
 ### Use Path Parameters
 
@@ -93,7 +93,7 @@ export const GET = async (
 }
 ```
 
-Learn more about path parameters in [this documentation](!docs!/advanced-development/api-routes/parameters#path-parameters).
+Learn more about path parameters in [this documentation](!docs!/learn/advanced-development/api-routes/parameters#path-parameters).
 
 ### Use Query Parameters
 
@@ -119,7 +119,7 @@ export const GET = async (
 }
 ```
 
-Learn more about query parameters in [this documentation](!docs!/advanced-development/api-routes/parameters#query-parameters).
+Learn more about query parameters in [this documentation](!docs!/learn/advanced-development/api-routes/parameters#query-parameters).
 
 ### Use Body Parameters
 
@@ -150,7 +150,7 @@ export const POST = async (
 }
 ```
 
-Learn more about request body parameters in [this documentation](!docs!/advanced-development/api-routes/parameters#request-body-parameters).
+Learn more about request body parameters in [this documentation](!docs!/learn/advanced-development/api-routes/parameters#request-body-parameters).
 
 ### Set Response Code
 
@@ -169,7 +169,7 @@ export const GET = async (
 }
 ```
 
-Learn more about setting the response code in [this documentation](!docs!/advanced-development/api-routes/responses#set-response-status-code).
+Learn more about setting the response code in [this documentation](!docs!/learn/advanced-development/api-routes/responses#set-response-status-code).
 
 ### Execute a Workflow in an API Route
 
@@ -197,7 +197,7 @@ export async function GET(
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/workflows#3-execute-the-workflow).
+Learn more in [this documentation](!docs!/learn/basics/workflows#3-execute-the-workflow).
 
 ### Change Response Content Type
 
@@ -235,7 +235,7 @@ export const GET = async (
 
 This changes the response type to return an event stream.
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/responses#change-response-content-type).
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/responses#change-response-content-type).
 
 ### Create Middleware
 
@@ -285,7 +285,7 @@ export default defineMiddlewares({
 })
 ```
 
-Learn more about middlewares in [this documentation](!docs!/advanced-development/api-routes/middlewares).
+Learn more about middlewares in [this documentation](!docs!/learn/advanced-development/api-routes/middlewares).
 
 ### Restrict HTTP Methods in Middleware
 
@@ -370,7 +370,7 @@ export const POST = async (
 }
 ```
 
-Learn more about request body validation in [this documentation](!docs!/advanced-development/api-routes/validation).
+Learn more about request body validation in [this documentation](!docs!/learn/advanced-development/api-routes/validation).
 
 ### Pass Additional Data to API Route
 
@@ -378,7 +378,7 @@ In this example, you'll pass additional data to the Create Product API route, th
 
 <Note>
 
-Find this example in details in [this documentation](!docs!/customization/extend-models/extend-create-product).
+Find this example in details in [this documentation](!docs!/learn/customization/extend-models/extend-create-product).
 
 </Note>
 
@@ -403,7 +403,7 @@ export default defineMiddlewares({
 
 <Note>
 
-Learn more about additional data in [this documentation](!docs!/advanced-development/api-routes/additional-data).
+Learn more about additional data in [this documentation](!docs!/learn/advanced-development/api-routes/additional-data).
 
 </Note>
 
@@ -430,7 +430,7 @@ createProductsWorkflow.hooks.productsCreated(
 
 <Note>
 
-Learn more about workflow hooks in [this documentation](!docs!/advanced-development/workflows/workflow-hooks).
+Learn more about workflow hooks in [this documentation](!docs!/learn/advanced-development/workflows/workflow-hooks).
 
 </Note>
 
@@ -461,7 +461,7 @@ export default defineMiddlewares({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/protected-routes).
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/protected-routes).
 
 ### Restrict an API Route to Logged-In Customers
 
@@ -487,7 +487,7 @@ export default defineMiddlewares({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/protected-routes).
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/protected-routes).
 
 ### Retrieve Logged-In Admin User
 
@@ -522,7 +522,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/protected-routes#retrieve-logged-in-admin-users-details).
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/protected-routes#retrieve-logged-in-admin-users-details).
 
 ### Retrieve Logged-In Customer
 
@@ -560,7 +560,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/protected-routes#retrieve-logged-in-customers-details).
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/protected-routes#retrieve-logged-in-customers-details).
 
 ### Throw Errors in API Route
 
@@ -585,7 +585,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/errors).
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/errors).
 
 ### Override Error Handler of API Routes
 
@@ -614,7 +614,7 @@ export default defineMiddlewares({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/api-routes/errors#override-error-handler),
+Learn more in [this documentation](!docs!/learn/advanced-development/api-routes/errors#override-error-handler),
 
 ### Setting up CORS for Custom API Routes
 
@@ -707,7 +707,7 @@ A module is a package of reusable commerce or architectural functionalities. The
 
 <Note>
 
-Find this example explained in details in [this documentation](!docs!/basics/modules).
+Find this example explained in details in [this documentation](!docs!/learn/basics/modules).
 
 </Note>
 
@@ -843,7 +843,7 @@ class HelloModuleService extends MedusaService({
 export default HelloModuleService
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/multiple-services).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/multiple-services).
 
 ### Accept Module Options
 
@@ -895,7 +895,7 @@ export default class HelloModuleService extends MedusaService({
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/options).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/options).
 
 ### Integrate Third-Party System in Module
 
@@ -936,7 +936,7 @@ export class BrandClient {
 }
 ```
 
-Find a longer example of integrating a third-party service in [this documentation](!docs!/customization/integrate-systems/service).
+Find a longer example of integrating a third-party service in [this documentation](!docs!/learn/customization/integrate-systems/service).
 
 ---
 
@@ -974,7 +974,7 @@ npx medusa db:generate helloModuleService
 npx medusa db:migrate
 ```
 
-Learn more in [this documentation](!docs!/basics/modules#1-create-data-model).
+Learn more in [this documentation](!docs!/learn/basics/modules#1-create-data-model).
 
 ### Data Model Property Types
 
@@ -1061,7 +1061,7 @@ const MyCustom = model.define("my_custom", {
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/property-types).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/property-types).
 
 ### Set Primary Key
 
@@ -1104,7 +1104,7 @@ const MyCustom = model.define("my_custom", {
 export default MyCustom
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/primary-key).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/primary-key).
 
 ### Default Property Value
 
@@ -1126,7 +1126,7 @@ const MyCustom = model.define("my_custom", {
 export default MyCustom
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/configure-properties).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/configure-properties).
 
 ### Nullable Property
 
@@ -1143,7 +1143,7 @@ const MyCustom = model.define("my_custom", {
 export default MyCustom
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/configure-properties#nullable-property).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/configure-properties#nullable-property).
 
 ### Unique Property
 
@@ -1160,7 +1160,7 @@ const User = model.define("user", {
 export default User
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/configure-properties#unique-property).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/configure-properties#unique-property).
 
 ### Define Database Index on Property
 
@@ -1179,7 +1179,7 @@ const MyCustom = model.define("my_custom", {
 export default MyCustom
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/index#define-database-index-on-property).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/index#define-database-index-on-property).
 
 ### Define Composite Index on Data Model
 
@@ -1206,7 +1206,7 @@ const MyCustom = model.define("my_custom", {
 export default MyCustom
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/index#define-database-index-on-data-model).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/index#define-database-index-on-data-model).
 
 ### Make a Property Searchable
 
@@ -1237,7 +1237,7 @@ const myCustoms = await helloModuleService.listMyCustoms({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/searchable-property).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/searchable-property).
 
 ### Create One-to-One Relationship
 
@@ -1259,7 +1259,7 @@ const Email = model.define("email", {
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/relationships#one-to-one-relationship).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/relationships#one-to-one-relationship).
 
 ### Create One-to-Many Relationship
 
@@ -1281,7 +1281,7 @@ const Product = model.define("product", {
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/relationships#one-to-many-relationship).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/relationships#one-to-many-relationship).
 
 ### Create Many-to-Many Relationship
 
@@ -1305,7 +1305,7 @@ const Product = model.define("product", {
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/relationships#many-to-many-relationship).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/relationships#many-to-many-relationship).
 
 ### Configure Cascades of Data Model
 
@@ -1326,7 +1326,7 @@ const Store = model.define("store", {
 
 This configures the delete cascade on the `Store` data model so that, when a store is delete, its products are also deleted.
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/relationships#cascades).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/relationships#cascades).
 
 
 ### Manage One-to-One Relationship
@@ -1373,7 +1373,7 @@ const user = await helloModuleService.updateUsers({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/manage-relationships#manage-one-to-one-relationship).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/manage-relationships#manage-one-to-one-relationship).
 
 ### Manage One-to-Many Relationship
 
@@ -1402,7 +1402,7 @@ const product = await helloModuleService.updateProducts({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/manage-relationships#manage-one-to-many-relationship)
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/manage-relationships#manage-one-to-many-relationship)
 
 ### Manage Many-to-Many Relationship
 
@@ -1443,7 +1443,7 @@ const updatedProduct = await helloModuleService.updateProducts({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/manage-relationships#manage-many-to-many-relationship).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/manage-relationships#manage-many-to-many-relationship).
 
 ### Retrieve Related Records
 
@@ -1464,7 +1464,7 @@ const product = await helloModuleService.retrieveProducts(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/data-models/manage-relationships#retrieve-records-of-relation).
+Learn more in [this documentation](!docs!/learn/advanced-development/data-models/manage-relationships#retrieve-records-of-relation).
 
 ---
 
@@ -1495,7 +1495,7 @@ The `HelloModuleService` will now have data-management methods for `MyCustom`.
 
 Refer to [this reference](../service-factory-reference/page.mdx) for details on the generated methods.
 
-Learn more about the service factory in [this documentation](!docs!/advanced-development/modules/service-factory).
+Learn more about the service factory in [this documentation](!docs!/learn/advanced-development/modules/service-factory).
 
 ### Resolve Resources in the Service
 
@@ -1557,7 +1557,7 @@ export default class HelloModuleService {
   </CodeTab>
 </CodeTabs>
 
-Learn more in [this documentation](!docs!/advanced-development/modules/container).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/container).
 
 ### Access Module Options in Service
 
@@ -1589,7 +1589,7 @@ export default class HelloModuleService extends MedusaService({
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/options).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/options).
 
 ### Run Database Query in Service
 
@@ -1625,7 +1625,7 @@ class HelloModuleService {
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/db-operations#run-queries)
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/db-operations#run-queries)
 
 ### Execute Database Operations in Transactions
 
@@ -1682,7 +1682,7 @@ class HelloModuleService {
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/db-operations#execute-operations-in-transactions).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/db-operations#execute-operations-in-transactions).
 
 ---
 
@@ -1713,7 +1713,7 @@ export default defineLink(
 npx medusa db:migrate
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links).
 
 ### Define a List Link
 
@@ -1733,7 +1733,7 @@ export default defineLink(
 )
 ```
 
-Learn more about list links in [this documentation](!docs!/advanced-development/module-links#define-a-list-link).
+Learn more about list links in [this documentation](!docs!/learn/advanced-development/module-links#define-a-list-link).
 
 ### Set Delete Cascade on Link Definition
 
@@ -1753,7 +1753,7 @@ export default defineLink(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links#define-a-list-link).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links#define-a-list-link).
 
 ### Add Custom Columns to Module Link
 
@@ -1813,7 +1813,7 @@ const { data } = await query.graph({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/custom-columns).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/custom-columns).
 
 ### Create Link Between Records
 
@@ -1835,7 +1835,7 @@ await remoteLink.create({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/remote-link#create-link).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/remote-link#create-link).
 
 ### Dismiss Link Between Records
 
@@ -1857,7 +1857,7 @@ await remoteLink.dismiss({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/remote-link#dismiss-link).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/remote-link#dismiss-link).
 
 ### Cascade Delete Linked Records
 
@@ -1877,7 +1877,7 @@ await remoteLink.delete({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/remote-link#cascade-delete-linked-records).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/remote-link#cascade-delete-linked-records).
 
 ### Restore Linked Records
 
@@ -1897,7 +1897,7 @@ await remoteLink.restore({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/remote-link#restore-linked-records).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/remote-link#restore-linked-records).
 
 ---
 
@@ -1933,7 +1933,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/query).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/query).
 
 ### Retrieve Linked Records of Data Model
 
@@ -1967,7 +1967,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/query#retrieve-linked-records).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/query#retrieve-linked-records).
 
 ### Apply Filters to Retrieved Records
 
@@ -2003,7 +2003,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/query#apply-filters).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/query#apply-filters).
 
 ### Apply Pagination and Sort Records
 
@@ -2048,7 +2048,7 @@ export const GET = async (
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/module-links/query#sort-records).
+Learn more in [this documentation](!docs!/learn/advanced-development/module-links/query#sort-records).
 
 ---
 
@@ -2115,7 +2115,7 @@ const myWorkflow = createWorkflow(
 export default myWorkflow
 ```
 
-Learn more in [this documentation](!docs!/basics/workflows).
+Learn more in [this documentation](!docs!/learn/basics/workflows).
 
 ### Execute a Workflow
 
@@ -2211,7 +2211,7 @@ Learn more in [this documentation](!docs!/basics/workflows).
   </CodeTab>
 </CodeTabs>
 
-Learn more in [this documentation](!docs!/basics/workflows#3-execute-the-workflow).
+Learn more in [this documentation](!docs!/learn/basics/workflows#3-execute-the-workflow).
 
 ### Step with a Compensation Function
 
@@ -2238,7 +2238,7 @@ const step1 = createStep(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/compensation-function).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/compensation-function).
 
 ### Manipulate Variables in Workflow
 
@@ -2268,7 +2268,7 @@ const myWorkflow = createWorkflow(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/variable-manipulation)
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/variable-manipulation)
 
 ### Using Conditions in Workflow
 
@@ -2336,7 +2336,7 @@ const workflow = createWorkflow(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/execute-another-workflow).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/execute-another-workflow).
 
 ### Consume a Workflow Hook
 
@@ -2357,7 +2357,7 @@ createProductsWorkflow.hooks.productsCreated(
 
 This executes a custom step at the hook's designated point in the workflow.
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/workflow-hooks).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/workflow-hooks).
 
 ### Expose a Hook
 
@@ -2412,7 +2412,7 @@ export const step1 = createStep(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/retry-failed-steps).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/retry-failed-steps).
 
 ### Run Steps in Parallel
 
@@ -2453,7 +2453,7 @@ const myWorkflow = createWorkflow(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/parallel-steps).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/parallel-steps).
 
 ### Configure Workflow Timeout
 
@@ -2481,7 +2481,7 @@ const myWorkflow = createWorkflow({
 export default myWorkflow
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/workflow-timeout).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/workflow-timeout).
 
 ### Configure Step Timeout
 
@@ -2499,7 +2499,7 @@ const step1 = createStep(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/workflow-timeout#configure-step-timeout).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/workflow-timeout#configure-step-timeout).
 
 ### Long-Running Workflow
 
@@ -2519,7 +2519,7 @@ const step2 = createStep(
 )
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/long-running-workflow).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/long-running-workflow).
 
 ### Change Step Status in Long-Running Workflow
 
@@ -2588,7 +2588,7 @@ await workflowEngineService.setStepFailure({
 })
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/long-running-workflow).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/long-running-workflow).
 
 ### Access Long-Running Workflow's Result
 
@@ -2634,7 +2634,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/workflows/long-running-workflow#access-long-running-workflow-status-and-result).
+Learn more in [this documentation](!docs!/learn/advanced-development/workflows/long-running-workflow#access-long-running-workflow-status-and-result).
 
 ---
 
@@ -2664,7 +2664,7 @@ export const config: SubscriberConfig = {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/events-and-subscribers).
+Learn more in [this documentation](!docs!/learn/basics/events-and-subscribers).
 
 ### Resolve Resources in Subscriber
 
@@ -2694,7 +2694,7 @@ export const config: SubscriberConfig = {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/events-and-subscribers#resolve-resources).
+Learn more in [this documentation](!docs!/learn/basics/events-and-subscribers#resolve-resources).
 
 ### Send a Notification to Reset Password
 
@@ -2779,7 +2779,7 @@ export const config: SubscriberConfig = {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/workflows#3-execute-the-workflow)
+Learn more in [this documentation](!docs!/learn/basics/workflows#3-execute-the-workflow)
 
 ---
 
@@ -2805,7 +2805,7 @@ export const config = {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/scheduled-jobs).
+Learn more in [this documentation](!docs!/learn/basics/scheduled-jobs).
 
 ### Resolve Resources in Scheduled Job
 
@@ -2834,7 +2834,7 @@ export const config = {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/scheduled-jobs#resolve-resources)
+Learn more in [this documentation](!docs!/learn/basics/scheduled-jobs#resolve-resources)
 
 ### Specify a Job's Execution Number
 
@@ -2853,7 +2853,7 @@ export const config = {
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/scheduled-jobs/execution-number).
+Learn more in [this documentation](!docs!/learn/advanced-development/scheduled-jobs/execution-number).
 
 ### Execute a Workflow in a Scheduled Job
 
@@ -2882,7 +2882,7 @@ export const config = {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/workflows#3-execute-the-workflow)
+Learn more in [this documentation](!docs!/learn/basics/workflows#3-execute-the-workflow)
 
 ---
 
@@ -2904,7 +2904,7 @@ export default async function helloWorldLoader() {
 }
 ```
 
-Learn more in [this documentation](!docs!/basics/loaders).
+Learn more in [this documentation](!docs!/learn/basics/loaders).
 
 ### Resolve Resources in Loader
 
@@ -2927,7 +2927,7 @@ export default async function helloWorldLoader({
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/container).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/container).
 
 ### Access Module Options
 
@@ -2954,7 +2954,7 @@ export default async function helloWorldLoader({
 }
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/modules/options).
+Learn more in [this documentation](!docs!/learn/advanced-development/modules/options).
 
 ### Register Resources in the Module's Container
 
@@ -3019,7 +3019,7 @@ export const config = defineWidgetConfig({
 export default ProductWidget
 ```
 
-Learn more about widgets in [this documentation](!docs!/advanced-development/admin/widgets).
+Learn more about widgets in [this documentation](!docs!/learn/advanced-development/admin/widgets).
 
 ### Receive Details Props in Widgets
 
@@ -3056,7 +3056,7 @@ export const config = defineWidgetConfig({
 export default ProductWidget
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/admin/widgets#detail-widget-props).
+Learn more in [this documentation](!docs!/learn/advanced-development/admin/widgets#detail-widget-props).
 
 ### Create a UI Route
 
@@ -3089,7 +3089,7 @@ export default CustomPage
 
 This adds a new page at `localhost:9000/app/custom`.
 
-Learn more in [this documentation](!docs!/advanced-development/admin/ui-routes).
+Learn more in [this documentation](!docs!/learn/advanced-development/admin/ui-routes).
 
 ### Create Settings Page
 
@@ -3120,7 +3120,7 @@ export default CustomSettingPage
 
 This adds a setting page at `localhost:9000/app/settings/custom`.
 
-Learn more in [this documentation](!docs!/advanced-development/admin/ui-routes#create-settings-page)
+Learn more in [this documentation](!docs!/learn/advanced-development/admin/ui-routes#create-settings-page)
 
 ### Accept Path Parameters in UI Routes
 
@@ -3149,7 +3149,7 @@ export default CustomPage
 
 This creates a UI route at `localhost:9000/app/custom/:id`, where `:id` is a path parameter.
 
-Learn more in [this documentation](!docs!/advanced-development/admin/ui-routes#path-parameters)
+Learn more in [this documentation](!docs!/learn/advanced-development/admin/ui-routes#path-parameters)
 
 ### Send Request to API Route
 
@@ -3196,7 +3196,7 @@ export const config = defineWidgetConfig({
 export default ProductWidget
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/admin/tips#send-requests-to-api-routes)
+Learn more in [this documentation](!docs!/learn/advanced-development/admin/tips#send-requests-to-api-routes)
 
 ### Add Link to Another Page
 
@@ -3224,7 +3224,7 @@ export const config = defineWidgetConfig({
 export default ProductWidget
 ```
 
-Learn more in [this documentation](!docs!/advanced-development/admin/tips#routing-functionalities).
+Learn more in [this documentation](!docs!/learn/advanced-development/admin/tips#routing-functionalities).
 
 ---
 
@@ -3234,7 +3234,7 @@ Medusa provides a `@medusajs/test-utils` package with utility tools to create in
 
 <Note>
 
-For details on setting up your project for integration tests, refer to [this documentation](!docs!/debugging-and-testing/testing-tools).
+For details on setting up your project for integration tests, refer to [this documentation](!docs!/learn/debugging-and-testing/testing-tools).
 
 </Note>
 
@@ -3270,7 +3270,7 @@ Then, run the test with the following command:
 npm run test:integration
 ```
 
-Learn more in [this documentation](!docs!/debugging-and-testing/testing-tools/integration-tests/api-routes).
+Learn more in [this documentation](!docs!/learn/debugging-and-testing/testing-tools/integration-tests/api-routes).
 
 ### Test Workflow
 
@@ -3300,7 +3300,7 @@ Then, run the test with the following command:
 npm run test:integration
 ```
 
-Learn more in [this documentation](!docs!/debugging-and-testing/testing-tools/integration-tests/workflows).
+Learn more in [this documentation](!docs!/learn/debugging-and-testing/testing-tools/integration-tests/workflows).
 
 ### Test Module's Service
 
@@ -3750,7 +3750,7 @@ Learn more in [this documentation](../commerce-modules/payment/payment-flow/page
 
 ### Get Variant's Prices for Region and Currency
 
-To get prices of a product variant for a region and currency using [Query](!docs!/advanced-development/module-links/query):
+To get prices of a product variant for a region and currency using [Query](!docs!/learn/advanced-development/module-links/query):
 
 ```ts
 import { QueryContext } from "@medusajs/framework/utils"
@@ -3782,7 +3782,7 @@ Learn more in [this documentation](../commerce-modules/product/guides/price/page
 
 ### Get All Variant's Prices
 
-To get all prices of a product variant using [Query](!docs!/advanced-development/module-links/query):
+To get all prices of a product variant using [Query](!docs!/learn/advanced-development/module-links/query):
 
 ```ts
 const { data: products } = await query.graph({
@@ -3804,7 +3804,7 @@ Learn more in [this documentation](../commerce-modules/product/guides/price/page
 
 ### Get Variant Prices with Taxes
 
-To get a variant's prices with taxes using [Query](!docs!/advanced-development/module-links/query) and the [Tax Module](../commerce-modules/tax/page.mdx)
+To get a variant's prices with taxes using [Query](!docs!/learn/advanced-development/module-links/query) and the [Tax Module](../commerce-modules/tax/page.mdx)
 
 ```ts
 import {
