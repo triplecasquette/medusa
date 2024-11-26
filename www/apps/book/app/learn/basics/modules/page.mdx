@@ -84,7 +84,7 @@ class BlogModuleService extends MedusaService({
 export default BlogModuleService
 ```
 
-Your module's service extends a class returned by the `MedusaService` utility function. The `MedusaService` function accepts an object of data models, and returns a class with generated methods for data-management Create, Read, Update, and Delete (CRUD) operations on those data models.
+Your module's service extends a class returned by the `MedusaService` utility function. The `MedusaService` function accepts an object of data models, and returns a class with generated methods for data-management Create, Read, Update, and Delete (CRUD) operations on those data models. You can pass all data models in your module in this object.
 
 For example, the `BlogModuleService` now has a `createPosts` method to create post records, and a `retrievePost` method to retrieve a post record. The suffix of each method (except for `retrieve`) is the pluralized name of the data model.
 
