@@ -1,4 +1,4 @@
-import { de, enUS, es, pl, ptBR, tr, th } from "date-fns/locale"
+import { de, enUS, es, fr, pl, ptBR, th, tr } from "date-fns/locale"
 import { Language } from "./types"
 
 export const languages: Language[] = [
@@ -19,6 +19,12 @@ export const languages: Language[] = [
     display_name: "Deutsch",
     ltr: true,
     date_locale: de,
+  },
+  {
+    code: "fr",
+    display_name: "Français",
+    ltr: true,
+    date_locale: fr,
   },
   {
     code: "pl",
