@@ -26,14 +26,11 @@ This method creates stores.
 const stores = await storeModuleService.createStores([
   {
     name: "Acme",
-    supported_currencies: [
-      { currency_code: "usd", is_default: true },
-      { currency_code: "eur" },
-    ],
+    supported_currencies: [{ currency_code: "usd", is_default: true }, { currency_code: "eur" }],
   },
   {
     name: "Acme 2",
-    supported_currencies: [{ currency_code: "usd", is_default: true }],
+    supported_currencies: [{currency_code: "usd", is_default: true}],
   },
 ])
 ```

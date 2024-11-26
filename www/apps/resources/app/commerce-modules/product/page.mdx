@@ -82,16 +82,15 @@ const products = await productService.createProducts([
     options: [
       {
         title: "Color",
+        values: ["Black", "White"],
       },
     ],
     variants: [
       {
         title: "Black Shirt",
-        options: [
-          {
-            value: "Black",
-          },
-        ],
+        options: {
+          Color: "Black",
+        },
       },
     ],
   },

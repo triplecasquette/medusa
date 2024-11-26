@@ -15,14 +15,16 @@ This method is used to retrieve a registration JWT token for a user, customer, o
 ## Example
 
 ```ts
-sdk.auth
-  .register("customer", "emailpass", {
+sdk.auth.register(
+  "customer",
+  "emailpass",
+  {
     email: "customer@gmail.com",
-    password: "supersecret",
+    password: "supersecret"
   }
-  .then((token) => {
-    console.log(token)
-  })
+).then((token) => {
+  console.log(token)
+})
 ```
 
 ## Parameters

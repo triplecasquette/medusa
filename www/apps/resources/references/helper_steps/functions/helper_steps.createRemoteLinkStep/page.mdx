@@ -16,22 +16,29 @@ Learn more in the [Remote Link documentation.](https://docs.medusajs.com/advance
 ## Example
 
 ```ts
-import { createWorkflow } from "@medusajs/framework/workflows-sdk"
-import { createRemoteLinkStep } from "@medusajs/medusa/core-flows"
-import { Modules } from "@medusajs/framework/utils"
+import {
+  createWorkflow
+} from "@medusajs/framework/workflows-sdk"
+import {
+  createRemoteLinkStep
+} from "@medusajs/medusa/core-flows"
+import {
+  Modules
+} from "@medusajs/framework/utils"
 
-const helloWorldWorkflow = createWorkflow("hello-world", () => {
-  createRemoteLinkStep([
-    {
+const helloWorldWorkflow = createWorkflow(
+  "hello-world",
+  () => {
+    createRemoteLinkStep([{
       [Modules.PRODUCT]: {
         product_id: "prod_123",
       },
-      helloModuleService: {
+      "helloModuleService": {
         my_custom_id: "mc_123",
       },
-    },
-  ])
-})
+    }])
+  }
+)
 ```
 
 ## Input

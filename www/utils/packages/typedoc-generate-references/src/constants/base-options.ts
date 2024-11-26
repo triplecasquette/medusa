@@ -2,14 +2,12 @@ import path from "path"
 import { TypeDocOptions } from "typedoc"
 import { rootPathPrefix } from "./general.js"
 
-console.log(rootPathPrefix)
-
 export const baseOptions: Partial<TypeDocOptions> = {
   plugin: ["typedoc-plugin-custom"],
   readme: "none",
   eslintPathName: path.join(
     rootPathPrefix,
-    "www/packages/eslint-config-docs/content.js"
+    "www/apps/resources/.content.eslintrc.mjs"
   ),
   pluginsResolvePath: path.join(rootPathPrefix, "www"),
   exclude: ["**/node_modules/**"],

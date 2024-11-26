@@ -209,6 +209,8 @@ paths:
     $ref: paths/store_carts_{id}.yaml
   /store/carts/{id}/complete:
     $ref: paths/store_carts_{id}_complete.yaml
+  /store/carts/{id}/customer:
+    $ref: paths/store_carts_{id}_customer.yaml
   /store/carts/{id}/line-items:
     $ref: paths/store_carts_{id}_line-items.yaml
   /store/carts/{id}/line-items/{line_id}:
@@ -239,6 +241,14 @@ paths:
     $ref: paths/store_orders.yaml
   /store/orders/{id}:
     $ref: paths/store_orders_{id}.yaml
+  /store/orders/{id}/transfer/accept:
+    $ref: paths/store_orders_{id}_transfer_accept.yaml
+  /store/orders/{id}/transfer/cancel:
+    $ref: paths/store_orders_{id}_transfer_cancel.yaml
+  /store/orders/{id}/transfer/decline:
+    $ref: paths/store_orders_{id}_transfer_decline.yaml
+  /store/orders/{id}/transfer/request:
+    $ref: paths/store_orders_{id}_transfer_request.yaml
   /store/payment-collections:
     $ref: paths/store_payment-collections.yaml
   /store/payment-collections/{id}/payment-sessions:

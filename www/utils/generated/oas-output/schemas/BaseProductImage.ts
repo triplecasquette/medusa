@@ -30,9 +30,14 @@
  *   metadata:
  *     type: object
  *     description: The image's metadata, can hold custom key-value pairs.
+ *   rank:
+ *     type: number
+ *     title: rank
+ *     description: The image's rank among its sibling images.
  * required:
  *   - id
  *   - url
+ *   - rank
  * 
 */
 

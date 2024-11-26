@@ -162,7 +162,7 @@ Make sure to add to the end of the database URL `?ssl_mode=disable` as well when
 module.exports = defineConfig({
   projectConfig: {
     databaseDriverOptions: process.env.NODE_ENV !== "development" ?
-      { ssl: { rejectUnauthorized: false } } : {}
+      { connection: { ssl: { rejectUnauthorized: false } } } : {}
     // ...
   },
   // ...
@@ -347,11 +347,11 @@ in both development and production environments. The default value is `false`.
 
 #### Example
 
-```ts
-title = "medusa-config.ts"
+```ts title="medusa-config.ts"
 module.exports = defineConfig({
   admin: {
-    disable: process.env.ADMIN_DISABLED === "true" || false,
+    disable: process.env.ADMIN_DISABLED === "true" ||
+      false
   },
   // ...
 })

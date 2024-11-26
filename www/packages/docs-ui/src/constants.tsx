@@ -87,6 +87,11 @@ export const navDropdownItems: NavigationItem[] = [
         link: "/resources/nextjs-starter",
       },
       {
+        type: "link",
+        title: "create-medusa-app",
+        link: "/resources/create-medusa-app",
+      },
+      {
         type: "divider",
       },
       {

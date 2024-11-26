@@ -27,7 +27,7 @@ properties:
     type: array
     description: The category's products.
     items:
-      $ref: ./AdminProduct.yaml
+      type: object
   name:
     type: string
     title: name

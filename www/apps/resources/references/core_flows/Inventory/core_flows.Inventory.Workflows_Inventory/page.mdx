@@ -6,10 +6,10 @@ import { TypeList, WorkflowDiagram } from "docs-ui"
 - [createInventoryItemsWorkflow](../../../modules/core_flows/page.mdx#createinventoryitemsworkflow)
 - [createInventoryLevelsWorkflow](../../../modules/core_flows/page.mdx#createinventorylevelsworkflow)
 - [deleteInventoryItemWorkflow](../../../modules/core_flows/page.mdx#deleteinventoryitemworkflow)
-- [validateInventoryLevelsDelete](../../../modules/core_flows/page.mdx#validateinventorylevelsdelete)
 - [deleteInventoryLevelsWorkflow](../../../modules/core_flows/page.mdx#deleteinventorylevelsworkflow)
 - [updateInventoryItemsWorkflow](../../../modules/core_flows/page.mdx#updateinventoryitemsworkflow)
 - [updateInventoryLevelsWorkflow](../../../modules/core_flows/page.mdx#updateinventorylevelsworkflow)
+- [validateInventoryLevelsDelete](../../../modules/core_flows/page.mdx#validateinventorylevelsdelete)
 
 ## bulkCreateDeleteLevelsWorkflow
 
@@ -83,16 +83,6 @@ This workflow deletes one or more inventory items.
 
 ___
 
-## validateInventoryLevelsDelete
-
-This step validates that inventory levels are deletable.
-
-### Input
-
-<TypeList types={[{"name":"inventoryLevels","type":"`any`[]","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="validateInventoryLevelsDelete"/>
-
-___
-
 ## deleteInventoryLevelsWorkflow
 
 This workflow deletes one or more inventory levels.
@@ -144,3 +134,13 @@ This workflow updates one or more inventory levels.
 ### Output
 
 <TypeList types={[{"name":"InventoryLevelDTO[]","type":"[InventoryLevelDTO](../../../types/InventoryTypes/interfaces/types.InventoryTypes.InventoryLevelDTO/page.mdx)[]","optional":false,"defaultValue":"","description":"","expandable":false,"children":[{"name":"InventoryLevelDTO","type":"[InventoryLevelDTO](../../../types/InventoryTypes/interfaces/types.InventoryTypes.InventoryLevelDTO/page.mdx)","optional":false,"defaultValue":"","description":"The inventory level details.","expandable":false,"children":[{"name":"id","type":"`string`","description":"The ID of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"inventory_item_id","type":"`string`","description":"The associated inventory item's ID.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"location_id","type":"`string`","description":"The associated location's ID.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"stocked_quantity","type":"`number`","description":"The stocked quantity of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"reserved_quantity","type":"`number`","description":"The reserved quantity of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"incoming_quantity","type":"`number`","description":"The incoming quantity of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"available_quantity","type":"`number`","description":"The available quantity of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"metadata","type":"`null` \\| `Record<string, unknown>`","description":"Holds custom data in key-value pairs.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"created_at","type":"`string` \\| `Date`","description":"The creation date of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"updated_at","type":"`string` \\| `Date`","description":"The update date of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"deleted_at","type":"`null` \\| `string` \\| `Date`","description":"The deletion date of the inventory level.","optional":false,"defaultValue":"","expandable":false,"children":[]}]}]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="updateInventoryLevelsWorkflow"/>
+
+___
+
+## validateInventoryLevelsDelete
+
+This step validates that inventory levels are deletable.
+
+### Input
+
+<TypeList types={[{"name":"inventoryLevels","type":"`any`[]","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="validateInventoryLevelsDelete"/>
