@@ -31,7 +31,7 @@ export const metadata = {
 
 In this guide, you'll learn how to integrate Medusa with Resend.
 
-When you install a Medusa application, you get a fully-fledged commerce platform with support for customizations. Medusa's architecture supports integrating third-party services, such as an email service, that allow you to build your unique requirements around core commerce flows.
+When you install a Medusa application, you get a fully-fledged commerce platform with a framework for customization. Medusa's architecture supports integrating third-party services, such as an email service, that allow you to build your unique requirements around core commerce flows.
 
 [Resend](https://resend.com/docs/introduction) is an email service with an intuitive developer experience to send emails from any application type, including Node.js servers. By integrating Resend with Medusa, you can build flows to send an email when a commerce operation is performed, such as when an order is placed.
 
@@ -150,9 +150,7 @@ You'll use these packages in the next steps.
 
 To integrate third-party services into Medusa, you create a custom module. A module is a re-usable package with functionalities related to a single feature or domain. Medusa integrates the module into your application without implications or side effects on your setup.
 
-Medusa has a Notification Module that acts as the interface to send notifications to users and customers through any channel, such as email or SMS. The actual sending is handled by module providers that add to the Notification Module. Module providers are essentially modules, but are configured as part of another module.
-
-In this step, you'll create a Resend Module Provider that implements sending notifications through the email channel. In later steps, you'll send email notifications with Resend when an order is placed through this provider.
+Medusa's Notification Module delegates sending notifications to other modules, called module providers. In this step, you'll create a Resend Module Provider that implements sending notifications through the email channel. In later steps, you'll send email notifications with Resend when an order is placed through this provider.
 
 <Note>
 
