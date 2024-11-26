@@ -2,6 +2,13 @@ import { TypeList, WorkflowDiagram } from "docs-ui"
 
 # Workflows\_Reservation
 
+## Functions
+
+- [createReservationsWorkflow](../../modules/core_flows/page.mdx#createreservationsworkflow)
+- [deleteReservationsByLineItemsWorkflow](../../modules/core_flows/page.mdx#deletereservationsbylineitemsworkflow)
+- [deleteReservationsWorkflow](../../modules/core_flows/page.mdx#deletereservationsworkflow)
+- [updateReservationsWorkflow](../../modules/core_flows/page.mdx#updatereservationsworkflow)
+
 ## Properties
 
 - [ids](undefined)
@@ -12,41 +19,6 @@ import { TypeList, WorkflowDiagram } from "docs-ui"
 - [deleteReservationsByLineItemsWorkflowId](../../modules/core_flows/page.mdx#deletereservationsbylineitemsworkflowid)
 - [deleteReservationsWorkflowId](../../modules/core_flows/page.mdx#deletereservationsworkflowid)
 - [updateReservationsWorkflowId](../../modules/core_flows/page.mdx#updatereservationsworkflowid)
-
-## Functions
-
-- [createReservationsWorkflow](../../modules/core_flows/page.mdx#createreservationsworkflow)
-- [deleteReservationsByLineItemsWorkflow](../../modules/core_flows/page.mdx#deletereservationsbylineitemsworkflow)
-- [deleteReservationsWorkflow](../../modules/core_flows/page.mdx#deletereservationsworkflow)
-- [updateReservationsWorkflow](../../modules/core_flows/page.mdx#updatereservationsworkflow)
-
-<TypeList types={[{"name":"ids","type":"`string`[]","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="Workflows_Reservation"/>
-
-___
-
-## createReservationsWorkflowId
-
- `Const` **createReservationsWorkflowId**: `"create-reservations-workflow"`
-
-___
-
-## deleteReservationsByLineItemsWorkflowId
-
- `Const` **deleteReservationsByLineItemsWorkflowId**: `"delete-reservations-by-line-items"`
-
-___
-
-## deleteReservationsWorkflowId
-
- `Const` **deleteReservationsWorkflowId**: `"delete-reservations"`
-
-___
-
-## updateReservationsWorkflowId
-
- `Const` **updateReservationsWorkflowId**: `"update-reservations-workflow"`
-
-___
 
 ## createReservationsWorkflow
 
@@ -109,3 +81,31 @@ This workflow updates one or more reservations.
 ### Output
 
 <TypeList types={[{"name":"UpdateReservationsWorkflowOutput","type":"[UpdateReservationsWorkflowOutput](../../types/WorkflowTypes/ReservationWorkflow/types/types.WorkflowTypes.ReservationWorkflow.UpdateReservationsWorkflowOutput/page.mdx)","optional":false,"defaultValue":"","description":"","expandable":false,"children":[{"name":"id","type":"`string`","description":"The ID of the reservation item.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"location_id","type":"`string`","description":"The associated location's ID.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"inventory_item_id","type":"`string`","description":"The associated inventory item's ID.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"quantity","type":"[BigNumberInput](../../types/types/types.BigNumberInput/page.mdx)","description":"The quantity of the reservation item.","optional":false,"defaultValue":"","expandable":false,"children":[{"name":"value","type":"`string` \\| `number`","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"numeric","type":"`number`","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"raw","type":"[BigNumberRawValue](../../types/types/types.BigNumberRawValue/page.mdx)","description":"","optional":true,"defaultValue":"","expandable":false,"children":[{"name":"value","type":"`string` \\| `number`","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]}]},{"name":"bigNumber","type":"`BigNumber`","description":"","optional":true,"defaultValue":"","expandable":false,"children":[]}]},{"name":"metadata","type":"`null` \\| `Record<string, unknown>`","description":"Holds custom data in key-value pairs.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"created_at","type":"`string` \\| `Date`","description":"The creation date of the reservation item.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"updated_at","type":"`string` \\| `Date`","description":"The update date of the reservation item.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"deleted_at","type":"`null` \\| `string` \\| `Date`","description":"The deletion date of the reservation item.","optional":false,"defaultValue":"","expandable":false,"children":[]},{"name":"line_item_id","type":"`null` \\| `string`","description":"The associated line item's ID.","optional":true,"defaultValue":"","expandable":false,"children":[]},{"name":"description","type":"`null` \\| `string`","description":"The description of the reservation item.","optional":true,"defaultValue":"","expandable":false,"children":[]},{"name":"allow_backorder","type":"`boolean`","description":"Allow backorder of the item. If true, it won't check inventory levels before reserving it.","optional":true,"defaultValue":"","expandable":false,"children":[]},{"name":"created_by","type":"`null` \\| `string`","description":"The created by of the reservation item.","optional":true,"defaultValue":"","expandable":false,"children":[]}]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="updateReservationsWorkflow"/>
+
+___
+
+<TypeList types={[{"name":"ids","type":"`string`[]","description":"","optional":false,"defaultValue":"","expandable":false,"children":[]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="Workflows_Reservation"/>
+
+___
+
+## createReservationsWorkflowId
+
+ `Const` **createReservationsWorkflowId**: `"create-reservations-workflow"`
+
+___
+
+## deleteReservationsByLineItemsWorkflowId
+
+ `Const` **deleteReservationsByLineItemsWorkflowId**: `"delete-reservations-by-line-items"`
+
+___
+
+## deleteReservationsWorkflowId
+
+ `Const` **deleteReservationsWorkflowId**: `"delete-reservations"`
+
+___
+
+## updateReservationsWorkflowId
+
+ `Const` **updateReservationsWorkflowId**: `"update-reservations-workflow"`

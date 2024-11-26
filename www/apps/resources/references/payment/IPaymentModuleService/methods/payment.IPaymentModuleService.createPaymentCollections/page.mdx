@@ -23,18 +23,19 @@ This method creates payment collections.
 ### Example
 
 ```ts
-const paymentCollections = await paymentModuleService.createPaymentCollections([
-  {
-    region_id: "reg_123",
-    currency_code: "usd",
-    amount: 3000,
-  },
-  {
-    region_id: "reg_321",
-    currency_code: "eur",
-    amount: 2000,
-  },
-])
+const paymentCollections =
+  await paymentModuleService.createPaymentCollections([
+    {
+      region_id: "reg_123",
+      currency_code: "usd",
+      amount: 3000,
+    },
+    {
+      region_id: "reg_321",
+      currency_code: "eur",
+      amount: 2000,
+    },
+  ])
 ```
 
 ### Parameters

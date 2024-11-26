@@ -6,43 +6,6 @@ import { TypeList } from "docs-ui"
 
 - [RestrictedFields](../../medusa/classes/medusa.RestrictedFields/page.mdx)
 
-## Interfaces
-
-- [MedusaRequest](../../medusa/interfaces/medusa.MedusaRequest/page.mdx)
-- [FindConfig](../../medusa/interfaces/medusa.FindConfig/page.mdx)
-- [RequestQueryFields](../../medusa/interfaces/medusa.RequestQueryFields/page.mdx)
-- [Logger](../../medusa/interfaces/medusa.Logger/page.mdx)
-- [SubscriberContext](../../medusa/interfaces/medusa.SubscriberContext/page.mdx)
-
-## Type Aliases
-
-- [RouteVerb](../../medusa/types/medusa.RouteVerb/page.mdx)
-- [MiddlewareVerb](../../medusa/types/medusa.MiddlewareVerb/page.mdx)
-- [MiddlewareFunction](../../medusa/types/medusa.MiddlewareFunction/page.mdx)
-- [MedusaErrorHandlerFunction](../../medusa/types/medusa.MedusaErrorHandlerFunction/page.mdx)
-- [ParserConfigArgs](../../medusa/types/medusa.ParserConfigArgs/page.mdx)
-- [ParserConfig](../../medusa/types/medusa.ParserConfig/page.mdx)
-- [MiddlewareRoute](../../medusa/types/medusa.MiddlewareRoute/page.mdx)
-- [MiddlewaresConfig](../../medusa/types/medusa.MiddlewaresConfig/page.mdx)
-- [MedusaResponse](../../medusa/types/medusa.MedusaResponse/page.mdx)
-- [MedusaNextFunction](../../medusa/types/medusa.MedusaNextFunction/page.mdx)
-- [MedusaRequestHandler](../../medusa/types/medusa.MedusaRequestHandler/page.mdx)
-- [MedusaContainer](../../medusa/types/medusa.MedusaContainer/page.mdx)
-- [MedusaContainer](../../medusa/types/medusa.MedusaContainer-1/page.mdx)
-- [EventMetadata](../../medusa/types/medusa.EventMetadata/page.mdx)
-- [Event](../../medusa/types/medusa.Event/page.mdx)
-- [MedusaPricingContext](../../medusa/types/medusa.MedusaPricingContext/page.mdx)
-- [ClassConstructor](../../medusa/types/medusa.ClassConstructor/page.mdx)
-- [MedusaContainer](../../medusa/types/medusa.MedusaContainer-2/page.mdx)
-- [Logger](../../medusa/types/medusa.Logger-1/page.mdx)
-- [Constructor](../../medusa/types/medusa.Constructor/page.mdx)
-- [SubscriberConfig](../../medusa/types/medusa.SubscriberConfig/page.mdx)
-- [SubscriberArgs](../../medusa/types/medusa.SubscriberArgs/page.mdx)
-
-## Variables
-
-- [HTTP\_METHODS](page.mdx#http_methods)
-
 ## Functions
 
 - [instrumentHttpLayer](page.mdx#instrumenthttplayer)
@@ -50,15 +13,43 @@ import { TypeList } from "docs-ui"
 - [instrumentWorkflows](page.mdx#instrumentworkflows)
 - [registerOtel](page.mdx#registerotel)
 
-___
+## Interfaces
+
+- [FindConfig](../../medusa/interfaces/medusa.FindConfig/page.mdx)
+- [Logger](../../medusa/interfaces/medusa.Logger/page.mdx)
+- [MedusaRequest](../../medusa/interfaces/medusa.MedusaRequest/page.mdx)
+- [RequestQueryFields](../../medusa/interfaces/medusa.RequestQueryFields/page.mdx)
+- [SubscriberContext](../../medusa/interfaces/medusa.SubscriberContext/page.mdx)
+
+## Type Aliases
+
+- [ClassConstructor](../../medusa/types/medusa.ClassConstructor/page.mdx)
+- [Constructor](../../medusa/types/medusa.Constructor/page.mdx)
+- [Event](../../medusa/types/medusa.Event/page.mdx)
+- [EventMetadata](../../medusa/types/medusa.EventMetadata/page.mdx)
+- [FindConfigOrder](../../medusa/types/medusa.FindConfigOrder/page.mdx)
+- [Logger](../../medusa/types/medusa.Logger-1/page.mdx)
+- [MedusaContainer](../../medusa/types/medusa.MedusaContainer/page.mdx)
+- [MedusaContainer](../../medusa/types/medusa.MedusaContainer-1/page.mdx)
+- [MedusaContainer](../../medusa/types/medusa.MedusaContainer-2/page.mdx)
+- [MedusaErrorHandlerFunction](../../medusa/types/medusa.MedusaErrorHandlerFunction/page.mdx)
+- [MedusaNextFunction](../../medusa/types/medusa.MedusaNextFunction/page.mdx)
+- [MedusaPricingContext](../../medusa/types/medusa.MedusaPricingContext/page.mdx)
+- [MedusaRequestHandler](../../medusa/types/medusa.MedusaRequestHandler/page.mdx)
+- [MedusaResponse](../../medusa/types/medusa.MedusaResponse/page.mdx)
+- [MiddlewareFunction](../../medusa/types/medusa.MiddlewareFunction/page.mdx)
+- [MiddlewareRoute](../../medusa/types/medusa.MiddlewareRoute/page.mdx)
+- [MiddlewaresConfig](../../medusa/types/medusa.MiddlewaresConfig/page.mdx)
+- [MiddlewareVerb](../../medusa/types/medusa.MiddlewareVerb/page.mdx)
+- [ParserConfig](../../medusa/types/medusa.ParserConfig/page.mdx)
+- [ParserConfigArgs](../../medusa/types/medusa.ParserConfigArgs/page.mdx)
+- [RouteVerb](../../medusa/types/medusa.RouteVerb/page.mdx)
+- [SubscriberArgs](../../medusa/types/medusa.SubscriberArgs/page.mdx)
+- [SubscriberConfig](../../medusa/types/medusa.SubscriberConfig/page.mdx)
 
 ## Variables
 
-### HTTP\_METHODS
-
- `Const` **HTTP\_METHODS**: readonly [`"GET"`, `"POST"`, `"PUT"`, `"PATCH"`, `"DELETE"`, `"OPTIONS"`, `"HEAD"`]
-
-List of all the supported HTTP methods
+- [HTTP\_METHODS](page.mdx#http_methods)
 
 ___
 
@@ -110,3 +101,13 @@ telemetry to work
 #### Returns
 
 <TypeList types={[{"name":"any","type":"`any`","optional":false,"defaultValue":"","description":"A helper function to configure the OpenTelemetry SDK with some defaults.\nFor better/more control, please configure the SDK manually.\n\nYou will have to install the following packages within your app for\ntelemetry to work\n\n- @opentelemetry/sdk-node\n- @opentelemetry/resources\n- @opentelemetry/sdk-trace-node\n- @opentelemetry/instrumentation-pg\n- @opentelemetry/instrumentation","expandable":false,"children":[]}]} expandUrl="https://docs.medusajs.com/v2/advanced-development/data-models/manage-relationships#retrieve-records-of-relation" sectionTitle="registerOtel"/>
+
+___
+
+## Variables
+
+### HTTP\_METHODS
+
+ `Const` **HTTP\_METHODS**: readonly [`"GET"`, `"POST"`, `"PUT"`, `"PATCH"`, `"DELETE"`, `"OPTIONS"`, `"HEAD"`]
+
+List of all the supported HTTP methods

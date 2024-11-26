@@ -212,6 +212,31 @@ export class Order {
   }
 
   /**
+   * This method cancels an order transfer request. It sends a request to the
+   * [Cancel Order Transfer Request](https://docs.medusajs.com/api/admin#orders_postordersidcanceltransferrequest)
+   * API route.
+   *
+   * @param id - The order's ID.
+   * @param headers - Headers to pass in the request.
+   * @returns The order's details.
+   *
+   * @example
+   * sdk.admin.order.cancelTransfer("order_123")
+   * .then(({ order }) => {
+   *   console.log(order)
+   * })
+   */
+  async cancelTransfer(id: string, headers?: ClientHeaders) {
+    return await this.client.fetch<HttpTypes.AdminOrderResponse>(
+      `/admin/orders/${id}/transfer/cancel`,
+      {
+        method: "POST",
+        headers,
+      }
+    )
+  }
+
+  /**
    * This method creates a fulfillment for an order. It sends a request to the
    * [Create Fulfillment](https://docs.medusajs.com/api/admin#orders_postordersidfulfillments)
    * API route.

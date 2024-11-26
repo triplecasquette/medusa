@@ -159,11 +159,11 @@ To update a user's password or other authentication details, use the `updateProv
 For example:
 
 ```ts
-const { success } = await authModuleService.update(
+const { success } = await authModuleService.updateProvider(
   "emailpass",
   // passed to the auth provider
   {
-    email: "user@example.com",
+    entity_id: "user@example.com",
     password: "supersecret",
   }
 )
