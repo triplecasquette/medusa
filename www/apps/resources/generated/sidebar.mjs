@@ -8036,6 +8036,14 @@ export const generatedSidebar = [
             "path": "/integrations/guides/sanity",
             "title": "Sanity",
             "children": []
+          },
+          {
+            "loaded": true,
+            "isPathHref": true,
+            "type": "link",
+            "path": "/integrations/guides/resend",
+            "title": "Resend",
+            "children": []
           }
         ]
       }

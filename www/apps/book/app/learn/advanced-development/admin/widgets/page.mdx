@@ -1,4 +1,4 @@
-import { Table } from "docs-ui"
+import { Prerequisites } from "docs-ui"
 
 export const metadata = {
   title: `${pageNumber} Admin Widgets`,
@@ -10,15 +10,22 @@ In this chapter, you’ll learn more about widgets and how to use them.
 
 ## What is an Admin Widget?
 
-Admin widgets are React components you inject into predetermined injection zones in the Medusa Admin dashboard.
+The Medusa Admin dashboard's pages are customizable to insert widgets of custom content in pre-defined injection zones. You create these widgets as React components that allow admin users to perform custom actions.
 
-For example, you can add a widget on the order details page that shows payment details retrieved from Stripe.
+For example, you can add a widget on the product details page that allow admin users to sync products to a third-party service.
 
 ---
 
 ## How to Create a Widget?
 
-A widget is created in a file under the `src/admin/widgets` directory. The file’s default export must be the widget, which is the React component. The file must also export the widget’s configurations.
+<Prerequisites
+  items={[{
+    link: "/learn/installation",
+    text: "Medusa application installed"
+  }]}
+/>
+
+You create a widget in a `.tsx` file under the `src/admin/widgets` directory. The file’s default export must be the widget, which is the React component that renders the custom content. The file must also export the widget’s configurations indicating where to insert the widget.
 
 For example, create the file `src/admin/widgets/product-widget.tsx` with the following content:
 
@@ -50,11 +57,9 @@ export const config = defineWidgetConfig({
 export default ProductWidget
 ```
 
-The widget only shows the heading `Product Widget`.
+You export the `ProductWidget` component, which shows the heading `Product Widget`. In the widget, you use [Medusa UI](!ui!), a package that Medusa maintains to allow you to customize the dashboard with the same components used to build it.
 
-Use the `defineWidgetConfig` function imported from `@medusajs/admin-sdk` to create and export the widget's configurations. It accepts as a parameter an object with the following property:
-
-- `zone`: A string or an array of strings, each being the name of the zone to inject the widget into.
+To export the widget's configurations, you use the `defineWidgetConfig` function imported from `@medusajs/admin-sdk`. It accepts as a parameter an object with the `zone` property, whose value is a string or an array of strings, each being the name of the zone to inject the widget into.
 
 In the example above, the widget is injected at the top of a product’s details.
 
@@ -64,9 +69,7 @@ The widget component must be created as an arrow function.
 
 </Note>
 
----
-
-## Test the Widget
+### Test the Widget
 
 To test out the widget, start the Medusa application:
 
@@ -78,11 +81,11 @@ Then, open a product’s details page. You’ll find your custom widget at the t
 
 ---
 
-## Detail Widget Props
+## Props Passed in Detail Pages
 
-Widgets that are injected into a details page (for example, `product.details.before`) receive a `data` prop, which is the main data of the details page (for example, the product object).
+Widgets that are injected into a details page receive a `data` prop, which is the main data of the details page.
 
-For example:
+For example, a widget injected into the `product.details.before` zone receives the product's details in the `data` prop:
 
 export const detailHighlights = [
   ["10", "data", "Receive the data as a prop."],
@@ -121,10 +124,16 @@ export const config = defineWidgetConfig({
 export default ProductWidget
 ```
 
-Notice that the type of the props is `DetailWidgetProps`, which accepts as a type argument the expected type of `data`.
+The props type is `DetailWidgetProps`, and it accepts as a type argument the expected type of `data`. For the product details page, it's `AdminProduct`.
 
 ---
 
 ## Injection Zone
 
 Refer to [this reference](!resources!/admin-widget-injection-zones) for the full list of injection zones and their props.
+
+---
+
+## Admin Components List
+
+To build admin customizations that match the Medusa Admin's designs and layouts, refer to [this guide](!resources!/admin-components) to find common components.
